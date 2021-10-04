@@ -1,6 +1,6 @@
-const UsersRouter = require('express').Router()
-const UsersController = require('../controllers/users')
+const UserRouter = require('express').Router()
+const UserController = require('../controllers/user')
 
-UsersRouter.get('/viewall', UsersController.findAll)
+UserRouter.get('/viewall', UserController.findAll)
 
-module.exports = UsersRouter
+module.exports = UserRouter

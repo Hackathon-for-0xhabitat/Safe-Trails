@@ -1,6 +1,9 @@
 const authRouter = require('express').Router()
-const UsersController = require('../controllers/users')
+const authController = require('../controllers/auth')
 
-// authRouter.get('/verify', UsersController.verify)
+authRouter.post('/register', authController.register)
+authRouter.post('/login', authController.login)
+authRouter.post('/forgotpassword', authController.forgotPassword)
+authRouter.post('/passwordreset/:resetToken', authController.resetPassword)
 
 module.exports = { authRouter }
