@@ -5,8 +5,11 @@ const app = express()
 const port = process.env.PORT || 3001
 const Routes = require('./routes/routes')
 
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+
+
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster2.ibofx.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`)
 .then((result)=>{
