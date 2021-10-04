@@ -21,9 +21,6 @@ app.use(
     saveUninitialized: true,
   })
 )
-app.use(errorHandler)
-authHandler(app)
-
 //DB CONNECTION
 mongoose
   .connect(
@@ -38,6 +35,9 @@ mongoose
 
 //ROUTES
 Routes(app)
+//MIDDLEWARE
+authHandler(app)
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`Server started on ${port}`)

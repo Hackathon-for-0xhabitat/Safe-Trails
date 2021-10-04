@@ -1,4 +1,6 @@
 const User = require('../models/User')
+const { validationResult } = require('express-validator')
+const utils = require('../helpers/utils')
 
 const findAll = async (req, res) => {
   const users = await User.find({})
@@ -8,12 +10,22 @@ const findAll = async (req, res) => {
     })
 }
 
-const addUser = async (req, res) => {}
-
-const verify = async (req, res, next) => {}
+const addUser = async (req, res, next) => {
+  const { username, email, password } = req.body
+  try {
+    const data = {
+      username,
+      email,
+      password: utils.generateHashedPassword(password),
+    }
+    const newUser = await User.create(data)
+    utils.sendToken(newUser, 200, res)
+  } catch (e) {
+    next(e)
+  }
+}
 
 module.exports = {
   findAll,
   addUser,
-  verify,
 }

@@ -3,11 +3,7 @@ const crypto = require('crypto')
 const ErrorResponse = require('../helpers/ErrorResponse')
 const User = require('../models/User')
 const sendEmail = require('../utils/sendEmail')
-
-const sendToken = (user, statusCode, res) => {
-  const token = user.getSignedJwtToken()
-  res.status(statusCode).json({ sucess: true, token })
-}
+const utils = require('../helpers/utils')
 
 const authenticateUser = async (req, email, password, done) => {
   try {
@@ -48,23 +44,7 @@ const login = async (req, res, next) => {
       return next(new ErrorResponse('Invalid credentials', 401))
     }
 
-    sendToken(user, 200, res)
-  } catch (err) {
-    next(err)
-  }
-}
-
-const register = async (req, res, next) => {
-  const { username, email, password } = req.body
-
-  try {
-    const user = await User.create({
-      username,
-      email,
-      password,
-    })
-
-    sendToken(user, 200, res)
+    utils.sendToken(user, 200, res)
   } catch (err) {
     next(err)
   }
@@ -155,7 +135,6 @@ const resetPassword = async (req, res, next) => {
 module.exports = {
   authenticateUser,
   login,
-  register,
   forgotPassword,
   resetPassword,
 }

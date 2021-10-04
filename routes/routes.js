@@ -3,9 +3,9 @@ const UsersRouter = require('./users.routes')
 
 const Routes = (app) => {
   //TEST
-  // app.get('/api', (req, res) => {
-  //   res.status(200).json({ message: 'connected' })
-  // })
+  app.get('/api', (req, res) => {
+    res.status(200).json({ message: 'connected' })
+  })
   //AUTH
   app.use('/auth', authRouter)
   //USERS

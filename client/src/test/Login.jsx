@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
-const Login = ({ history }) => {
+const Login = () => {
+  let history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -11,7 +12,7 @@ const Login = ({ history }) => {
     if (localStorage.getItem('authToken')) {
       history.push('/')
     }
-  }, [history])
+  }, [])
 
   const loginHandler = async (e) => {
     e.preventDefault()
@@ -24,22 +25,23 @@ const Login = ({ history }) => {
 
     try {
       const { data } = await axios.post(
-        '/api/auth/login',
+        '/auth/login',
         { email, password },
         config
       )
 
       localStorage.setItem('authToken', data.token)
 
-      history.push('/')
+      history.push('/home')
     } catch (error) {
+      console.log(error)
       setError(error.response.data.error)
       setTimeout(() => {
         setError('')
-      }, 5000)
+      }, 10000)
     }
   }
-
+  console.log(error)
   return (
     <div className="flex justify-center items-center">
       <form onSubmit={loginHandler}>
@@ -78,7 +80,7 @@ const Login = ({ history }) => {
         </div>
         <button
           type="submit"
-          className="w-full flex items-center justify-center p-4"
+          className="bg-blue-500 hover:bg-blue-300 w-full flex items-center justify-center p-4"
         >
           Login
         </button>
