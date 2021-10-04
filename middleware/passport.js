@@ -2,8 +2,10 @@ require('dotenv').config()
 const passport = require('passport')
 const FacebookStrategy = require('passport-facebook').Strategy
 const GoogleStrategy = require('passport-google-oauth20').Strategy
+const JwtStrategy = require('passport-jwt').Strategy
+const ExtractJwt = require('passport-jwt').ExtractJwt
 const LocalStrategy = require('passport-local').Strategy
-const { authenticateUser } = require('../controllers/auth')
+const { login } = require('../controllers/auth')
 
 const authHandler = (app) => {
   app.use(passport.initialize())
@@ -11,7 +13,6 @@ const authHandler = (app) => {
   passport.serializeUser((user, cb) => {
     cb(null, user)
   })
-
   passport.deserializeUser((user, cb) => {
     cb(null, user)
   })
@@ -24,9 +25,31 @@ const authHandler = (app) => {
         passwordField: 'password',
         passReqToCallback: true,
       },
-      authenticateUser
+      login
     )
   )
+
+  passport.use(
+    new JwtStrategy(
+      {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.JWT_SECRET,
+      },
+      function (jwt_payload, done) {
+        User.findOne({ id: jwt_payload._id }, function (err, user) {
+          if (err) {
+            return done(err, false)
+          }
+          if (user) {
+            return done(null, user)
+          } else {
+            return done(null, false)
+          }
+        })
+      }
+    )
+  )
+
   //   // Facebook Strategy
   //   passport.use(
   //     new FacebookStrategy(

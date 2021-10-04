@@ -1,23 +1,33 @@
+require('dotenv').config()
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const ErrorResponse = require('../helpers/ErrorResponse')
 const User = require('../models/User')
 const sendEmail = require('../utils/sendEmail')
 const utils = require('../helpers/utils')
+const jwt = require('jsonwebtoken')
 
-const authenticateUser = async (req, email, password, done) => {
+const authenticate = async (req, res, next) => {
+  let token
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1]
+  }
+  if (!token) {
+    return next(new ErrorResponse('Not authorized to access this route', 401))
+  }
   try {
-    const user = await User.findOne({ email })
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    const user = await User.findById(decoded.id)
     if (!user) {
-      return done(null, false, { message: 'User not found, please try again' })
+      return next(new ErrorResponse('No user found with this id', 404))
     }
-    if (!bcrypt.compareSync(password, user.hashedPassword)) {
-      return done(null, false, { message: 'Wrong Password, please try again' })
-    }
-    delete user.hashedPassword
-    return done(null, user, { message: 'Logged in Successfully' })
-  } catch (error) {
-    return done(error)
+    req.user = user
+    next()
+  } catch (err) {
+    return next(new ErrorResponse('Not authorized to access this route', 401))
   }
 }
 
@@ -133,7 +143,7 @@ const resetPassword = async (req, res, next) => {
 }
 
 module.exports = {
-  authenticateUser,
+  authenticate,
   login,
   forgotPassword,
   resetPassword,
