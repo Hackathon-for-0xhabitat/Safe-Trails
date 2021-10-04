@@ -6,4 +6,4 @@ authRouter.post('/login', authController.login)
 authRouter.post('/forgotpassword', authController.forgotPassword)
 authRouter.post('/passwordreset/:resetToken', authController.resetPassword)
 
-module.exports = { authRouter }
+module.exports = authRouter
