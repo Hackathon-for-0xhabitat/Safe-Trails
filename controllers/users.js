@@ -8,7 +8,7 @@ const findAll = async (req, res) => {
       })
   }
 
-const addUser = async (req, res, next) => {
+const addUser = async (req, res) => {
 
 }
 
