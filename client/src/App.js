@@ -1,11 +1,17 @@
 import './App.css';
+import MapDisplay from './MapDisplay'
 
 function App() {
   return (
     <div>
-      Hey you! Safe biking!
+    
+      <MapDisplay/>
+
     </div>
   );
 }
 
 export default App;
+
+
+
