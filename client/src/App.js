@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-
 import MapDisplay from './components/MapDisplay';
 import UserInput from './components/UserInput';
 import SideBar from './components/SideBar';
@@ -9,6 +8,8 @@ import Login from './components/Login';
 import './components/MapDisplay.css';
 import Footer from './components/Footer';
 import RegisterForm from './components/RegisterForm';
+import SidebarVoting from './components/SidebarVoting';
+// import Footer from './components/Footer';
 
 function App() {
    const [latLng, setLatLng] = useState({});
@@ -16,7 +17,14 @@ function App() {
    const [isSidebar, setIsSidebar] = useState(false);
    const [isCoord, setIsCoord] = useState(false);
    const [register, setRegister] = useState(false)
+   const[selectedIssue,setSelectedIssue]=useState({})
 
+   const votingHandler = (value) => {
+      setSelectedIssue(value)
+   }
+
+   console.log("selectedIssue", selectedIssue)
+   
    const loginCloseHandler = () => {
       setIsSidebar(false);
       // setIsCoord(true);
@@ -41,8 +49,13 @@ function App() {
       !isSidebar && setLatLng({});
    }, [isSidebar]);
 
+   console.log(latLng);
+
    return (
+
+     
       <>
+          {Object.keys(selectedIssue).length !==0 && <SidebarVoting /> }
          {isLogged && (
             <button className="avatar">
                <img
@@ -53,7 +66,7 @@ function App() {
             </button>
          )}
          <div className="relative">
-            <MapDisplay marker={latLng} coOrdinates={coOrdinates} />
+            <MapDisplay marker={latLng} coOrdinates={coOrdinates} votingHandler={votingHandler} />
             {/* <UserInput/> */}
 
             {isLogged && isCoord && isSidebar ? (
@@ -75,10 +88,9 @@ function App() {
             )}
          </div>
          <RegisterForm />
-         <Footer />
+         {/* <Footer /> */}
       </>
    );
-
 }
 
 export default App;

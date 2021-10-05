@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const flash = require('connect-flash')
+const session = require('express-session')
 const { authHandler } = require('./middleware/passport')
 const errorHandler = require('./middleware/error')
 const cors = require('cors')
@@ -14,7 +15,15 @@ app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
-app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.static(path.join(__dirname, '/client/build')))
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+)
 
 //DB CONNECTION
 mongoose
@@ -34,7 +43,9 @@ app.use(errorHandler)
 //ROUTES
 Routes(app)
 
-app.use((req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
+app.use((req, res) =>
+  res.sendFile(path.join(__dirname, '/client/build', 'index.html'))
+)
 
 app.listen(port, () => {
   console.log(`Server started on ${port}`)
