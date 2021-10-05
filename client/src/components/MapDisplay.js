@@ -1,6 +1,6 @@
 import './MapDisplay.css'
 
-import React, { useState, useRef, useCallBack } from 'react'
+import React, { useState, useRef, useCallBack, useEffect } from 'react'
 import {
   GoogleMap,
   useLoadScript,
@@ -43,7 +43,7 @@ const options = {
   zoomcontrol: true,
 }
 
-const MapDisplay = ({coOrdinates}) => {
+const MapDisplay = ({coOrdinates, marker}) => {
 
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -51,22 +51,14 @@ const MapDisplay = ({coOrdinates}) => {
     libraries,
   })
 
-  const [markers, setMarkers] = useState([])
-  const [selected, setSelected] = useState(null)
-  const [clicked,setclicked]=useState(false)
 
+  const [selected, setSelected] = useState(null)
+  // const [clicked,setclicked]=useState(false)
 
   const onMapClick = React.useCallback((e) => {
-    setclicked(true)
-    coOrdinates({ lat:e.latLng.lat(), lng:e.latLng.lng() })
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-      },
-    ])
+    // setclicked(true)
+    coOrdinates({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+
   }, [])
    
    const mapRef = React.useRef();
@@ -77,7 +69,9 @@ const MapDisplay = ({coOrdinates}) => {
    const panTo = React.useCallback(({ lat, lng }) => {
       mapRef.current.panTo({ lat, lng });
       mapRef.current.setZoom(16);
-    }, []);
+   }, []);
+  
+  
 
     //Up-Vote-Down-Vote
   const[upVote, setUpVote] = useState(0)
@@ -97,14 +91,23 @@ const MapDisplay = ({coOrdinates}) => {
         <Search panTo={panTo}  />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={12}
+        zoom={13}
         center={center}
         options={options}
          onClick={onMapClick}
          onLoad={onMapLoad}
       >
+        {Object.keys(marker).length !== 0 && <Marker
+          position={{ lat: marker.lat, lng: marker.lng }}
+          icon={{
+            url: '/biking.png',
+            scaledSize: new window.google.maps.Size(50, 50),
+            origin: new window.google.maps.Point(0, 0),
+            anchor: new window.google.maps.Point(30, 30),
+          }}
+        />}
          
-        {markers.map((marker) => (
+        {/* {allMarkers.length > 0 && allMarkers.map((marker) => (
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
@@ -118,7 +121,7 @@ const MapDisplay = ({coOrdinates}) => {
               setSelected(marker)
             }}
           />
-        ))}
+        ))} */}
         {selected ? (<InfoWindow position={{lat:selected.lat, lng:selected.lng}} 
         onCloseClick={()=> {setSelected(null)}}>
            <div>
@@ -158,6 +161,7 @@ const Locate =({ panTo })=> {
   );
 }
 
+      
 const Search=({ panTo }) => {
    const {
      ready,

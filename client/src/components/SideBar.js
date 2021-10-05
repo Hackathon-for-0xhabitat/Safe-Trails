@@ -5,7 +5,7 @@ import { XIcon } from "@heroicons/react/solid";
 Geocode.setApiKey("AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY");
 Geocode.setLanguage("en");
 
-const SideBar = ({ lat, lng, coOrdinates }) => {
+const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler  }) => {
   const [address, setAddress] = useState("");
   // Get address from latitude & longitude.
   Geocode.fromLatLng(lat, lng).then(
@@ -49,8 +49,11 @@ const SideBar = ({ lat, lng, coOrdinates }) => {
   };
   const closeWindow = () => {
     coOrdinates("");
+    sidebarCloseHandler()
   };
+
   return (
+    <>
     <div className="absolute right-0 top-0 bottom-0 h-full pt-10 pb-3 px-5 z-50">
       <form class="flex h-full max-w-sm space-x-3">
         <div class="w-full max-w-2xl px-5 py-5 mt-20 bg-white rounded-lg shadow dark:bg-gray-800">
@@ -152,6 +155,8 @@ const SideBar = ({ lat, lng, coOrdinates }) => {
         </div>
       </form>
     </div>
+    <div className="w-screen h-screen bg-black bg-opacity-10 absolute z-10 top-0"></div>
+</>
   );
 };
 

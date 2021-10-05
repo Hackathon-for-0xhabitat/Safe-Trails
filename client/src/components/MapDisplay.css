@@ -27,15 +27,37 @@ h1 {
   }
   .locate {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    left: 1.5rem;
+    bottom: 1.5rem;
     background: none;
     border: none;
     z-index: 10;
   }
   .locate img {
-    width: 50px;
+    width: 80px;
     cursor: pointer;
+  }
+
+ 
+  .avatar{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    z-index: 20;
+    display:inline;
+    margin-right:2rem;
+    object-fit: cover;
+  
+  }
+  .avatar img {
+    width:4rem;
+    height:4rem;
+   cursor: pointer;
+    border-radius:100%;
+    padding:0.01rem
+   
   }
   /* .logo{
     background: #22c1c3;  
