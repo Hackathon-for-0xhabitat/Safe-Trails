@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const flash = require('connect-flash')
+const session = require('express-session')
 const { authHandler } = require('./middleware/passport')
 const errorHandler = require('./middleware/error')
 const cors = require('cors')
@@ -15,6 +16,14 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
 app.use(express.static(path.join(__dirname, 'build')))
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+)
 
 //DB CONNECTION
 mongoose
