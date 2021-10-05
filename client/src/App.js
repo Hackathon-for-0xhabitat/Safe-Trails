@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-
 import MapDisplay from './components/MapDisplay';
 import UserInput from './components/UserInput';
 import SideBar from './components/SideBar';
 import Login from './components/Login';
 import './components/MapDisplay.css';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 
 function App() {
    const [latLng, setLatLng] = useState({});
@@ -39,6 +38,7 @@ function App() {
       !isSidebar && setLatLng({});
    }, [isSidebar]);
 
+   console.log(latLng);
    return (
       <>
          {isLogged && (
@@ -71,10 +71,9 @@ function App() {
                )
             )}
          </div>
-         <Footer />
+         {/* <Footer /> */}
       </>
    );
-
 }
 
 export default App;

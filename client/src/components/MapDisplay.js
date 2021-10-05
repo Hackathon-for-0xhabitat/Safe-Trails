@@ -20,6 +20,7 @@ import {
    ComboboxList,
    ComboboxOption,
 } from '@reach/combobox';
+import axios from 'axios';
 
 import { formatRelative } from 'date-fns';
 import '@reach/combobox/styles.css';
@@ -43,15 +44,59 @@ const options = {
    zoomcontrol: true,
 };
 
+const data = [
+   {
+      title: 'Dangerous intersection',
+      description: '',
+      _id: { $oid: '615b4e5f65f9e95b15087a01' },
+      lat: 52.520008,
+      lng: 13.484954,
+      date: '12/28/28',
+      votesup: ['615b4e5f65f9e95b15087a01', '615b4e5f65f9e95b15087a07'],
+      votesdown: ['615b4e5f65f9e95b15787a01'],
+      img: '',
+   },
+   {
+      title: 'No Lane',
+      lat: 52.520008,
+      lng: 13.404954,
+      date: '12/28/28',
+      __v: 0,
+      _id: { $oid: '615c733dfd1a8509a54f7977' },
+   },
+   {
+      title: 'Potholes',
+      lat: 52.520008,
+      lng: 13.444954,
+      date: '12/28/28',
+      __v: 0,
+      _id: { $oid: '615c733dfd1a8509a54f7877' },
+   },
+];
+
 const MapDisplay = ({ coOrdinates, marker }) => {
    const { isLoaded, loadError } = useJsApiLoader({
       googleMapsApiKey: 'AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY',
       libraries,
    });
 
+   const [allMarkers, setAllMarkers] = useState([]);
+   const [loading, setLoading] = useState(true);
    const [markers, setMarkers] = useState([]);
    const [selected, setSelected] = useState(null);
    const [clicked, setclicked] = useState(false);
+
+   useEffect(() => {
+      console.log(data);
+      setAllMarkers(data);
+      // axios
+      //    .get('/api/marks/')
+      //    .then((res) => {
+      //       setAllMarkers(res);
+      //       setLoading(false);
+      //    })
+      //    .catch((e) => console.log(e));
+   }, []);
 
    const onMapClick = React.useCallback((e) => {
       setclicked(true);
@@ -65,7 +110,6 @@ const MapDisplay = ({ coOrdinates, marker }) => {
          },
       ]);
    }, []);
-
    const mapRef = React.useRef();
    const onMapLoad = React.useCallback((map) => {
       mapRef.current = map;
@@ -83,10 +127,11 @@ const MapDisplay = ({ coOrdinates, marker }) => {
    if (loadError) return 'Error loading maps';
    if (!isLoaded) return 'Loading Maps';
 
+   console.log(allMarkers);
    // const address= https://maps.googleapis.com/maps/api/geocode/json?latlng=44.4647452,7.3553838&key=YOUR_API_KEY
    return (
       <div>
-         <h1 className="text-4xl font-bold">Safe Trails</h1>
+         <h1 className="text-6xl font-bold">Safer Trails</h1>
          <Locate panTo={panTo} />
          <Search panTo={panTo} />
          <GoogleMap
@@ -98,32 +143,36 @@ const MapDisplay = ({ coOrdinates, marker }) => {
             onLoad={onMapLoad}
          >
             {Object.keys(marker).length !== 0 && (
-               <Marker
-                  position={{ lat: marker.lat, lng: marker.lng }}
-                  icon={{
-                     url: '/biking.png',
-                     scaledSize: new window.google.maps.Size(50, 50),
-                     origin: new window.google.maps.Point(0, 0),
-                     anchor: new window.google.maps.Point(30, 30),
-                  }}
-               />
+               <div className="bg-red-800 bg-opacity-30 w-50 h-50 rounded-full">
+                  <Marker
+                     position={{ lat: marker.lat, lng: marker.lng }}
+                     text={marker.title}
+                     icon={{
+                        url: '/biking.png',
+                        scaledSize: new window.google.maps.Size(50, 50),
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(30, 30),
+                     }}
+                  />
+               </div>
             )}
 
-            {/* {allMarkers.length > 0 && allMarkers.map((marker) => (
-          <Marker
-            key={marker.time.toISOString()}
-            position={{ lat: marker.lat, lng: marker.lng }}
-            icon={{
-              url: '/biking.png',
-              scaledSize: new window.google.maps.Size(50, 50),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(30, 30),
-            }}
-            onClick={() => {
-              setSelected(marker)
-            }}
-          />
-        ))} */}
+            {allMarkers.length > 0 &&
+               allMarkers.map((marker) => (
+                  <Marker
+                     key={marker.title}
+                     position={{ lat: marker.lat, lng: marker.lng }}
+                     icon={{
+                        url: '/Clipboard.png',
+                        scaledSize: new window.google.maps.Size(10, 10),
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(5, 5),
+                     }}
+                     onClick={() => {
+                        setSelected(marker);
+                     }}
+                  />
+               ))}
             {selected ? (
                <InfoWindow
                   position={{ lat: selected.lat, lng: selected.lng }}
@@ -134,14 +183,14 @@ const MapDisplay = ({ coOrdinates, marker }) => {
                   <div>
                      <h2 className="text-xl font-semibold">Bad Road!</h2>
                      <p>Time: {formatRelative(selected.time, new Date())}</p>
-                     <button onClick={() => setUpVote(upVote + 1)}>
+                     {/* <button onClick={() => setUpVote(upVote + 1)}>
                         Up Vote
                      </button>
                      <p>{upVote}</p>
                      <button onClick={() => setDownVote(downVote - 1)}>
                         Down Vote
                      </button>
-                     <p>{downVote}</p>
+                     <p>{downVote}</p> */}
                   </div>
                </InfoWindow>
             ) : null}
