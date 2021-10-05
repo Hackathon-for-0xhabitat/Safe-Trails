@@ -1,10 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
-import Geocode from 'react-geocode'
-import { FileDrop } from 'react-file-drop'
-import { XIcon } from '@heroicons/react/solid'
-Geocode.setApiKey('AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY')
-Geocode.setLanguage('en')
-
 const Login = ({ username, hashPassword, userLogin, loginCloseHandler }) => {
   const loginSubmit = (e) => {
     e.preventDefault()
