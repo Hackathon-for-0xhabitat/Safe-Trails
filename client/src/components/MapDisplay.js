@@ -86,7 +86,7 @@ const MapDisplay = ({ coOrdinates, marker }) => {
    // const address= https://maps.googleapis.com/maps/api/geocode/json?latlng=44.4647452,7.3553838&key=YOUR_API_KEY
    return (
       <div>
-         <h1 className="text-4xl font-bold">Safe Trails</h1>
+         <h1 className="text-4xl font-bold nav">Safe Trails</h1>
          <Locate panTo={panTo} />
          <Search panTo={panTo} />
          <GoogleMap

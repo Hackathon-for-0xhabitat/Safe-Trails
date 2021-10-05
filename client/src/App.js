@@ -7,7 +7,7 @@ import UserInput from './components/UserInput';
 import SideBar from './components/SideBar';
 import Login from './components/Login';
 import './components/MapDisplay.css';
-import Footer from './components/Footer';
+
 
 function App() {
    const [latLng, setLatLng] = useState({});
@@ -71,7 +71,7 @@ function App() {
                )
             )}
          </div>
-         <Footer />
+       
       </>
    );
 

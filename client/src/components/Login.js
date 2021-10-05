@@ -37,8 +37,8 @@ const Login = ({ username, hashPassword, userLogin,loginCloseHandler }) => {
               />
             </svg>
           </div>
-          <div class="mb-6 text-3xl font-light text-center font-bold text-gray-800 dark:text-white">
-         Please Login
+          <div class="mb-6 text-3xl font-light text-center font-semibold text-gray-800 dark:text-white">
+          To Log an Inssue, Please log in to your account
           </div>
           <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
             <div class="col-span-2 lg:col-span-2">
@@ -69,7 +69,16 @@ const Login = ({ username, hashPassword, userLogin,loginCloseHandler }) => {
                      onClick={loginSubmit}
                 class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
               >
-                Submit
+                Login
+              </button>
+               </div>
+               <div class="col-span-2 text-right m-3">
+              <button
+                     type="submit"
+                     onClick={loginSubmit}
+                class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+              >
+                Register
               </button>
             </div>
           </div>
