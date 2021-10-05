@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
+
 import MapDisplay from './components/MapDisplay';
 import UserInput from './components/UserInput';
 import SideBar from './components/SideBar';
@@ -73,6 +74,7 @@ function App() {
          <Footer />
       </>
    );
+
 }
 
 export default App;
