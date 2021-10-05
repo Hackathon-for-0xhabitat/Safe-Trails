@@ -1,0 +1,45 @@
+h1 {
+   position: absolute;
+   top: 1rem;
+   left: 1rem;
+   color: black;
+   z-index: 10;
+   margin: 0;
+   padding: 0;
+ }
+ .search {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    z-index: 10;
+    
+  }
+ .search input {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    width: 100%;
+    border: 1px solid rgb(100, 104, 85, .4);
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  }
+  .locate {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    z-index: 10;
+  }
+  .locate img {
+    width: 50px;
+    cursor: pointer;
+  }
+  /* .logo{
+    background: #22c1c3;  
+background: -webkit-linear-gradient(to right, #fdbb2d, #22c1c3);  
+background: linear-gradient(to right, #fdbb2d, #22c1c3); 
+ font-size: 20px;
+  }  */
