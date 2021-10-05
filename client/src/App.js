@@ -1,32 +1,80 @@
-import { useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
 
-import MapDisplay from './components/MapDisplay'
-import UserInput from './components/UserInput'
-import SideBar from './components/SideBar'
-import Home from './test/Home'
+
+import MapDisplay from './components/MapDisplay';
+import UserInput from './components/UserInput';
+import SideBar from './components/SideBar';
+import Login from './components/Login';
+import './components/MapDisplay.css';
+import Footer from './components/Footer';
 
 function App() {
-  const [latLng, setLatLng] = useState({})
+   const [latLng, setLatLng] = useState({});
+   const [isLogged, setIsLogged] = useState(false);
+   const [isSidebar, setIsSidebar] = useState(false);
+   const [isCoord, setIsCoord] = useState(false);
 
-  const coOrdinates = (value) => {
-    setLatLng(value)
-  }
-  console.log(latLng)
-  return (
-    <div className="relative">
-      <Home />
-      <MapDisplay coOrdinates={coOrdinates} />
-      {/* <UserInput/> */}
-      {Object.entries(latLng).length !== 0 && (
-        <div className="w-screen h-screen bg-black bg-opacity-10 absolute z-10 top-0"></div>
-      )}
+   const loginCloseHandler = () => {
+      setIsSidebar(false);
+      // setIsCoord(true);
+      //markers.length > 0 && setMarkers([...markers.pop()])
+   };
 
-      {Object.entries(latLng).length !== 0 && (
-        <SideBar lat={latLng.lat} lng={latLng.lng} coOrdinates={coOrdinates} />
-      )}
-    </div>
-  )
+   const sidebarCloseHandler = () => {
+      setIsSidebar(false);
+      // setIsCoord(true);
+      //markers.length > 0 && setMarkers([...markers.pop()])
+   };
+
+   const coOrdinates = (value) => {
+      setLatLng(value);
+      setIsCoord(true);
+      setIsSidebar(true);
+   };
+   const userLogin = (value) => {
+      setIsLogged(value);
+   };
+   useEffect(() => {
+      !isSidebar && setLatLng({});
+   }, [isSidebar]);
+
+   return (
+      <>
+         {isLogged && (
+            <button className="avatar">
+               <img
+                  classNname=""
+                  src="https://clickmedical.co/wp-content/uploads/2018/08/Nick-Gibb-1-1024x596.jpg"
+                  alt="Profileimage"
+               />
+            </button>
+         )}
+         <div className="relative">
+            <MapDisplay marker={latLng} coOrdinates={coOrdinates} />
+            {/* <UserInput/> */}
+
+            {isLogged && isCoord && isSidebar ? (
+               <SideBar
+                  lat={latLng.lat}
+                  lng={latLng.lng}
+                  coOrdinates={coOrdinates}
+                  sidebarCloseHandler={sidebarCloseHandler}
+               />
+            ) : (
+               isCoord &&
+               isSidebar && (
+                  <Login
+                     userLogin={userLogin}
+                     loginCloseHandler={loginCloseHandler}
+                  />
+               )
+            )}
+         </div>
+         <Footer />
+      </>
+   );
+
 }
 
-export default App
+export default App;
