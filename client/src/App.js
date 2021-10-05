@@ -76,7 +76,8 @@ function App() {
                   coOrdinates={coOrdinates}
                   sidebarCloseHandler={sidebarCloseHandler}
                />
-            ) ? register : (<RegisterForm />) : (
+            ) ? register : isCoord &&
+            isSidebar && (<RegisterForm />) : (
                isCoord &&
                isSidebar && (
                   <Login
@@ -87,7 +88,6 @@ function App() {
                )
             )}
          </div>
-         <RegisterForm />
          {/* <Footer /> */}
       </>
    );
