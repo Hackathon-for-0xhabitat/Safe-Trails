@@ -2,32 +2,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Allison&family=Kaushan+Script&family=Meddon&family=Mr+Dafoe&family=Mr+De+Haviland&family=Sacramento&display=swap');
 
 h1 {
-   /* position: relative;
-   top: 2rem;
-   left: 2rem; */
-   color: whitesmoke;
+   position: absolute;
+   top: 1.5rem;
+   left: 1.5rem;
+
    z-index: 10;
    /* margin: 20px; */
 
-   background-color: rgb(148, 151, 134);
-   padding: 20px;
+   /* background-color: rgb(148, 151, 134); */
+   /* padding: 20px; */
 }
 .search {
    position: absolute;
-   top: 1rem;
-   right: 0.5rem;
-   transform: translateX(-50%);
+   top: 1.5 rem;
+   right: 1.5rem;
+   left: 85%;
+   transform: translateX(-90%);
    width: 100%;
    max-width: 400px;
    z-index: 10;
+   
 }
 .search input {
    padding: 0.5rem;
    font-size: 1.5rem;
-   width: 100%;
-   border: 1px solid rgb(100, 104, 85, 0.4);
+   width: 90%;
+   border: 1.2px solid #F64F4F;
    border-radius: 10px;
-   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, );
+ margin-top:1rem;
 }
 .locate {
    position: absolute;
@@ -45,23 +48,7 @@ h1 {
    margin: 0;
    padding: 0;
 }
-.search {
-   position: absolute;
-   top: 1rem;
-   left: 50%;
-   transform: translateX(-50%);
-   width: 100%;
-   max-width: 400px;
-   z-index: 10;
-}
-.search input {
-   padding: 0.5rem;
-   font-size: 1.5rem;
-   width: 100%;
-   border: 1px solid rgb(100, 104, 85, 0.4);
-   border-radius: 10px;
-   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-}
+
 
 
 .avatar {
