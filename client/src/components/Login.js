@@ -44,11 +44,6 @@ const Login = ({ userLogin, loginCloseHandler, setRegister }) => {
       }, 5000)
     }
   }
-
-   const loginSubmit = (e) => {
-      e.preventDefault();
-      userLogin(true)
-   }
    
    const loginClosed = () => {
       loginCloseHandler(true)
