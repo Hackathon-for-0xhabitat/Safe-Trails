@@ -1,6 +1,6 @@
 import './MapDisplay.css';
 
-import React, { useState, useRef, useCallBack } from 'react';
+import React, { useState, useRef, useCallBack, useEffect } from 'react';
 import {
    GoogleMap,
    useLoadScript,
@@ -43,7 +43,7 @@ const options = {
    zoomcontrol: true,
 };
 
-const MapDisplay = ({ coOrdinates }) => {
+const MapDisplay = ({ coOrdinates, marker }) => {
    const { isLoaded, loadError } = useJsApiLoader({
       googleMapsApiKey: 'AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY',
       libraries,
@@ -85,21 +85,20 @@ const MapDisplay = ({ coOrdinates }) => {
 
    // const address= https://maps.googleapis.com/maps/api/geocode/json?latlng=44.4647452,7.3553838&key=YOUR_API_KEY
    return (
-      <div className="mapDisplayContainer">
-         <h1 className="text-5xl font-bold">Safer Trails</h1>
+      <div>
+         <h1 className="text-4xl font-bold">Safe Trails</h1>
          <Locate panTo={panTo} />
          <Search panTo={panTo} />
          <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={12}
+            zoom={13}
             center={center}
             options={options}
             onClick={onMapClick}
             onLoad={onMapLoad}
          >
-            {markers.map((marker) => (
+            {Object.keys(marker).length !== 0 && (
                <Marker
-                  key={marker.time.toISOString()}
                   position={{ lat: marker.lat, lng: marker.lng }}
                   icon={{
                      url: '/biking.png',
@@ -107,11 +106,24 @@ const MapDisplay = ({ coOrdinates }) => {
                      origin: new window.google.maps.Point(0, 0),
                      anchor: new window.google.maps.Point(30, 30),
                   }}
-                  onClick={() => {
-                     setSelected(marker);
-                  }}
                />
-            ))}
+            )}
+
+            {/* {allMarkers.length > 0 && allMarkers.map((marker) => (
+          <Marker
+            key={marker.time.toISOString()}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            icon={{
+              url: '/biking.png',
+              scaledSize: new window.google.maps.Size(50, 50),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(30, 30),
+            }}
+            onClick={() => {
+              setSelected(marker)
+            }}
+          />
+        ))} */}
             {selected ? (
                <InfoWindow
                   position={{ lat: selected.lat, lng: selected.lng }}
