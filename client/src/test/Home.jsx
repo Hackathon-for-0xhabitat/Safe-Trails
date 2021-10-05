@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Login from './Login'
-import RegisterForm from './RegisterForm'
+import RegisterForm from '../components/RegisterForm'
 
 const Home = () => {
   return (

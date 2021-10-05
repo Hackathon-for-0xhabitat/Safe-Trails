@@ -1,14 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import Geocode from "react-geocode";
-import { FileDrop } from "react-file-drop";
-import { XIcon } from "@heroicons/react/solid";
-Geocode.setApiKey("AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY");
-Geocode.setLanguage("en");
+import  {BrowserRouter as Link} from 'react-router-dom'
 
-const Login = ({ username, hashPassword, userLogin,loginCloseHandler }) => {
+const Login = ({ userLogin, loginCloseHandler, setRegister }) => {
 
-   
-   
    const loginSubmit = (e) => {
       e.preventDefault();
       userLogin(true)
@@ -17,6 +10,10 @@ const Login = ({ username, hashPassword, userLogin,loginCloseHandler }) => {
    const loginClosed = () => {
       loginCloseHandler(true)
 }
+  const handleRegister = () => {
+    loginCloseHandler(true)
+    setRegister(true)
+  }
 
    return (
    <>
@@ -70,6 +67,9 @@ const Login = ({ username, hashPassword, userLogin,loginCloseHandler }) => {
                 class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
               >
                 Submit
+              </button>
+              <button onClick={()=>handleRegister()} className="py-2 px-4 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg">
+               Register
               </button>
             </div>
           </div>

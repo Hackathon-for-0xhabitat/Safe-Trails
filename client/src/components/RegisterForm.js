@@ -34,14 +34,12 @@ const RegisterForm = () =>{
         )
     }
 
-        
-
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <h1>Register</h1>
-                    <hr />
+        <div className=  "absolute right-0 top-0 bottom-0 h-full pt-10 pb-3 px-5 z-50">
+            <form  class="flex h-full max-w-sm space-x-3">
+                
+                    <h3 className="text-2xl">Register</h3>
+                    <div className="flex flex-col justify-around">
                         <label for="email">Email</label>
                         <input
                             type="text"
@@ -50,8 +48,10 @@ const RegisterForm = () =>{
                             value={email}
                             id="email"
                             onChange={handleChangeEmail}
+                            tabIndex={1}
+                            className="w-full mb-1 px-5 py-4 shadow border border-b border-black"
                         />
-                    <hr />
+                    </div>
                         <label for="username">Username</label>
                         <input
                             type="text"
@@ -60,6 +60,8 @@ const RegisterForm = () =>{
                             value={username}
                             id="username"
                             onChange={handleChangeUsername}
+                            tabIndex={2}
+                            className="w-full mb-1 px-5 py-4 shadow border border-b border-black"
                         />
 
                         <label for='psw'>Password</label>
@@ -70,11 +72,20 @@ const RegisterForm = () =>{
                             value={password }
                             id='psw'
                             onChange={handleChangePassword}
+                            tabIndex={3}
+                            className="w-full mb-1 px-5 py-4 shadow border border-b border-black"
                         />
                         
-                    <hr />
-                        <button type="submit" class="registerbtn" >Register</button>
-                </div>
+                    
+                        <button
+                         type="submit" 
+                         class="registerbtn"
+                         onClick={handleSubmit}
+                         className="bg-blue-500 hover:bg-blue-300 w-full flex items-center justify-center p-4"
+                        >
+                        Register
+                        </button>
+                
                 <div>
                         Do you have an account? <Link to="/login">Login</Link>
                 </div>

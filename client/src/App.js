@@ -8,12 +8,14 @@ import SideBar from './components/SideBar';
 import Login from './components/Login';
 import './components/MapDisplay.css';
 import Footer from './components/Footer';
+import RegisterForm from './components/RegisterForm';
 
 function App() {
    const [latLng, setLatLng] = useState({});
    const [isLogged, setIsLogged] = useState(false);
    const [isSidebar, setIsSidebar] = useState(false);
    const [isCoord, setIsCoord] = useState(false);
+   const [register, setRegister] = useState(false)
 
    const loginCloseHandler = () => {
       setIsSidebar(false);
@@ -61,16 +63,18 @@ function App() {
                   coOrdinates={coOrdinates}
                   sidebarCloseHandler={sidebarCloseHandler}
                />
-            ) : (
+            ) ? register : (<RegisterForm />) : (
                isCoord &&
                isSidebar && (
                   <Login
                      userLogin={userLogin}
                      loginCloseHandler={loginCloseHandler}
+                     setRegister={setRegister}
                   />
                )
             )}
          </div>
+         <RegisterForm />
          <Footer />
       </>
    );
