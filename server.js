@@ -3,10 +3,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const flash = require('connect-flash')
 const session = require('express-session')
-const authHandler = require('./middleware/passport')
+const { authHandler } = require('./middleware/passport')
 const errorHandler = require('./middleware/error')
 const cors = require('cors')
-const path = require('path')
 const app = express()
 const port = process.env.PORT || 3001
 const Routes = require('./routes/routes')
@@ -14,6 +13,7 @@ const Routes = require('./routes/routes')
 app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({ extended: false }))
+app.use(flash())
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -21,6 +21,7 @@ app.use(
     saveUninitialized: true,
   })
 )
+
 //DB CONNECTION
 mongoose
   .connect(
@@ -33,11 +34,11 @@ mongoose
     console.log(err)
   })
 
-//ROUTES
-Routes(app)
 //MIDDLEWARE
 authHandler(app)
 app.use(errorHandler)
+//ROUTES
+Routes(app)
 
 app.listen(port, () => {
   console.log(`Server started on ${port}`)

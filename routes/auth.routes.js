@@ -1,24 +1,17 @@
 const authRouter = require('express').Router()
 const authController = require('../controllers/auth')
-const { registerValidation } = require('../helpers/utils')
 const passport = require('passport')
+const { authenticate } = require('../middleware/passport')
 
-authRouter.post(
-  '/login',
-  passport.authenticate(
-    'local',
-    {
-      successRedirect: '/api/auth/verify',
-      failureRedirect: '/api/auth/errors',
-      failureFlash: true,
-      passReqToCallback: true,
-    },
-    (req, res) => {
-      res.status(404).json({ error: 'inteligence not found' })
-    }
-  )
-)
-authRouter.post('/forgotpassword', authController.forgotPassword)
-authRouter.post('/passwordreset/:resetToken', authController.resetPassword)
+//AUTHENTICATE
+authRouter.post('/login', authenticate, authController.login)
+
+//LOGOUT
+authRouter.get('/logout', authController.logout)
+
+//ERROR HANDLER
+authRouter.get('/errors', (req, res) => {
+  res.status(404).json({ error: 'Invalid Credentials' })
+})
 
 module.exports = authRouter

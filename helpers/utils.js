@@ -19,15 +19,9 @@ const registerValidation = [
     .withMessage('Password must be minimum 8 characters long'),
 ]
 
-const sendToken = (user, statusCode, res) => {
-  const token = user.getSignedJwtToken()
-  res.status(statusCode).json({ sucess: true, token })
-}
-
-const generateHashedPassword = (password) => bcrypt.hashSync(password, 10)
+const generateHashedPassword = (password) => bcrypt.hash(password, 10)
 
 module.exports = {
   registerValidation,
-  sendToken,
   generateHashedPassword,
 }
