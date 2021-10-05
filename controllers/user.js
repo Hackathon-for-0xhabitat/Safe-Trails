@@ -19,7 +19,7 @@ const addUser = async (req, res, next) => {
       password: await utils.generateHashedPassword(password),
     }
     const newUser = await User.create(data)
-    // utils.sendToken(newUser, 200, res)
+    utils.sendToken(newUser, res)
   } catch (e) {
     next(e)
   }

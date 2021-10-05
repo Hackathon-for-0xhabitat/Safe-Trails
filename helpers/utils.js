@@ -18,10 +18,29 @@ const registerValidation = [
     .isLength({ min: 8 })
     .withMessage('Password must be minimum 8 characters long'),
 ]
+const sendToken = (user, res) => {
+  if (user.id) {
+    const payload = {
+      id: user._id,
+      username: user.username,
+    }
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRE,
+    })
+    return res.status(200).json({
+      access_token: token,
+      token_type: 'bearer',
+      expires: process.env.JWT_EXPIRE,
+    })
+  } else {
+    res.status(401).json({ message: 'wrong credentials' })
+  }
+}
 
 const generateHashedPassword = (password) => bcrypt.hash(password, 10)
 
 module.exports = {
   registerValidation,
   generateHashedPassword,
+  sendToken,
 }
