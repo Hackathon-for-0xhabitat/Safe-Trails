@@ -4,6 +4,7 @@ import './App.css'
 import MapDisplay from './components/MapDisplay'
 import UserInput from './components/UserInput'
 import SideBar from './components/SideBar'
+import Home from './test/Home'
 
 function App() {
   const [latLng, setLatLng] = useState({})
@@ -14,6 +15,7 @@ function App() {
   console.log(latLng)
   return (
     <div className="relative">
+      <Home />
       <MapDisplay coOrdinates={coOrdinates} />
       {/* <UserInput/> */}
       {Object.entries(latLng).length !== 0 && (
