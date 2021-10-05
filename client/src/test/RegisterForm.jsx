@@ -1,26 +1,46 @@
 import {React, useState } from 'react'
 import  {BrowserRouter as Link} from 'react-router-dom'
+import axios from 'axios'
 
 
 const RegisterForm = () =>{
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [repeatPassword, setRepeatPassword] = useState('')
     const [email, setEmail] = useState('')
 
-    const handleSubmit = (event) => event.preventDefault();
+
     const handleChangeEmail = (event) => {
         setEmail(event.target.value);}
     const handleChangePassword = (event) => {
         setPassword(event.target.value) }
-    const handleChangeRepeatPassword = (event) => {
-        setRepeatPassword(event.target.value)}
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value) }
 
-    
+      const handleSubmit = () => {
+        const loginFormData = new FormData();
+        loginFormData.append("email", email)
+        loginFormData.append("username", username)
+        loginFormData.append("password", password)
+
+        const config = { header: { 'Content-Type': 'application/json'} }
+        
+        axios(( '/api/users/register', { email, username, password }, config )
+        .then((result)=>{
+            console.log(result)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        )
+    }
+
+        
+
     return(
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <h1 >Register</h1>
+                    <h1>Register</h1>
                     <hr />
                         <label for="email">Email</label>
                         <input
@@ -31,25 +51,25 @@ const RegisterForm = () =>{
                             id="email"
                             onChange={handleChangeEmail}
                         />
+                    <hr />
+                        <label for="username">Username</label>
+                        <input
+                            type="text"
+                            placeholder="Enter a Username"
+                            name="username"
+                            value={username}
+                            id="username"
+                            onChange={handleChangeUsername}
+                        />
 
                         <label for='psw'>Password</label>
                         <input
                             type='password'
                             palceholder='Enter the password'
                             name='psw'
-                            value={password}
+                            value={password }
                             id='psw'
                             onChange={handleChangePassword}
-                        />
-
-                        <label for="psw-repeat"><b>Repeat Password</b></label>
-                        <input 
-                            type="password" 
-                            placeholder="Repeat Password"
-                            name="psw-repeat"
-                            value={repeatPassword}
-                            id="psw-repeat"
-                            onChange={handleChangeRepeatPassword}
                         />
                         
                     <hr />

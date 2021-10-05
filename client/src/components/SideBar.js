@@ -74,7 +74,7 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                         />
                      </svg>
                   </div>
-                  <div class="mb-6 text-3xl font-light text-center text-gray-800 dark:text-white">
+                  <div class="mb-6 text-3xl font-normal text-center text-gray-800 dark:text-white">
                      {address}
                   </div>
                   <div class="grid max-w-xl grid-cols-2 gap-4 m-auto">
@@ -83,7 +83,7 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                            <input
                               type="text"
                               id="contact-form-name"
-                              class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                              class=" rounded-lg border-transparent  border-2 flex-1 appearance-none  border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               placeholder="Problem Description"
                            />
                         </div>
@@ -94,7 +94,7 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                         </div>
                     </div> */}
 
-                     <div className="relative bg-gray-200 h-full w-full p-4 mb-5 mx-20 rounded-xl ">
+                     <div className="relative bg-red-50 h-full w-full p-4 mb-5 mx-20 rounded-xl ">
                         {imageAsFile.name && (
                            <button
                               onClick={clearImage}
@@ -124,7 +124,9 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                            <p class="text-center text-xl">
                               {imageAsFile.name
                                  ? imageAsFile.name
-                                 : 'Click or Drop the Image here'}
+                                 : (<div className="flex flex-col"><p>Click or Drop the Image here </p> <div className="flex justify-center text-gray-700"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                               </svg> </div></div>)}
                            </p>
                         </FileDrop>
                      </div>
@@ -139,16 +141,16 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                      <div class="col-span-2">
                         <label class="text-gray-700" for="name">
                            <textarea
-                              class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                              class="flex-1 appearance-none border-2 border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               id="comment"
                               placeholder="Enter detailed Description ..."
                               name="comment"
-                              rows="5"
+                              rows="3"
                               cols="40"
                            ></textarea>
                         </label>
                      </div>
-                     <div class="col-span-2 text-right">
+                     {/* <div class="col-span-2 text-right">
                         <button
                            onClick={() => setUpVote(upVote + 1)}
                            class="py-2 px-4  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
@@ -162,11 +164,11 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                         >
                            Down Vote
                         </button>
-                     </div>
+                     </div> */}
                      <div class="col-span-2 text-right">
                         <button
                            type="submit"
-                           class="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                           class="py-2 px-4  bg-red-400 hover:bg-red-600 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                         >
                            Submit
                         </button>
