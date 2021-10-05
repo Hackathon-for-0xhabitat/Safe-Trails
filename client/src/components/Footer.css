@@ -1,0 +1,20 @@
+.footerWrapper {
+   /* background-color: rgb(70, 86, 155); */
+   background-color: rgb(148, 151, 134);
+   padding: 10px;
+   text-align: center;
+   bottom: 0;
+   color: white;
+}
+.studentName {
+   padding: 15px;
+   color: white;
+}
+.studentContainer {
+   display: flex;
+   justify-content: center;
+}
+
+.pillar {
+   height: 20px;
+}
