@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Login from './Login'
+import RegisterForm from './RegisterForm'
 
 const Home = () => {
   return (
@@ -8,6 +9,9 @@ const Home = () => {
         <Switch>
           <Route exact path="/Login">
             <Login />
+          </Route>
+          <Route exact path='/register'>
+          <RegisterForm />
           </Route>
           <Route exact path="/">
             <div>Hello</div>
