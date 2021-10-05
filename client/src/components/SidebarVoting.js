@@ -1,13 +1,7 @@
-
-
-
 const SidebarVoting = (props) => {
    
-   console.log("propsfromvoting", props)
+   console.log("propsfromvoting", props.value)
    
-
-
-
    return (
       <>
       <div className="absolute right-0 top-0 bottom-0 h-full pt-10 pb-3 px-5 z-50">

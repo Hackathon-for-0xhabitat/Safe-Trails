@@ -38,12 +38,34 @@ h1 {
    left: 1.5rem;
    background: none;
    border: none;
-   z-index: 10;
+   z-index: 15;
 }
 .locate img {
    width: 80px;
    cursor: pointer;
 }
+
+
+.tooltip-wrap {
+   position: relative;
+ }
+ .tooltip-wrap .tooltip-content {
+   display: none;
+   position: absolute;
+   bottom: 100%;
+   left: 15%;
+   right: 15%;
+   color:#F64F4F;
+   font-weight: bold;
+   font-size:1rem
+   /* background-color: #F64F4F; */
+   /* padding: 1rem; */
+  
+ }
+ .tooltip-wrap:hover .tooltip-content {
+   display: inline-block;
+ }
+
 .logo {
    margin: 0;
    padding: 0;

@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import Geocode from 'react-geocode';
 import { FileDrop } from 'react-file-drop';
-import { XIcon } from '@heroicons/react/solid';
 Geocode.setApiKey('AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY');
 Geocode.setLanguage('en');
 
 const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
-   const [upVote, setUpVote] = useState(0);
-   const [downVote, setDownVote] = useState(0);
+   // const [upVote, setUpVote] = useState(0);
+   // const [downVote, setDownVote] = useState(0);
 
    const [address, setAddress] = useState('');
    // Get address from latitude & longitude.

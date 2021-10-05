@@ -1,6 +1,6 @@
 import "./MapDisplay.css";
 
-import React, { useState, useRef, useCallBack, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -23,9 +23,11 @@ import {
 import axios from "axios";
 
 import { formatRelative } from "date-fns";
+
 import "@reach/combobox/styles.css";
 
 import mapStyles from "./mapStyles";
+
 import SidebarVoting from "./SidebarVoting";
 
 const libraries = ["places"];
@@ -157,11 +159,12 @@ const MapDisplay = ({ coOrdinates, marker,votingHandler }) => {
   console.log(allMarkers);
   // const address= https://maps.googleapis.com/maps/api/geocode/json?latlng=44.4647452,7.3553838&key=YOUR_API_KEY
   return (
-    <div>
+     <div>
+      
       {/* <h1 className=" text-red-400 md:text-5xl font-sans md:font-bold">Safer Trails</h1>  */}
       <img
-        className=" hidden md:flex absolute top-1 left-1 z-10 w-80 p-5 "
-        src="/logoTitle.svg"
+        className=" hidden md:flex md:absolute md:top-1 md:left-1 md:z-10 md:w-80 md:p-5 "
+        src="/safeTrailsLogo.svg"
         alt="logo"
       />
 
@@ -281,8 +284,16 @@ const Locate = ({ panTo }) => {
           () => null
         );
       }}
-    >
-      <img src="/thumb-compass.png" alt="compass" />
+     >
+        
+        <div class="tooltip-wrap">
+        <img src="/thumb-compass.png" alt="compass" />
+  <div class="tooltip-content">
+    <p>See My Location</p>
+  </div> 
+</div>
+
+      {/* <img src="/thumb-compass.png" alt="compass" /> */}
     </button>
   );
 };
