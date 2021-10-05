@@ -1,12 +1,16 @@
 const RewardsRouter = require('express').Router()
 const RewardsController = require('../controllers/rewards')
+const passport = require('passport')
 
-RewardsRouter.get('/', RewardsController.findAll)
-RewardsRouter.delete('/:id', RewardsController.deleteById)
+RewardsRouter.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  RewardsController.findAll
+)
+RewardsRouter.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  RewardsController.deleteById
+)
 
-
-
-
-
-
-module.exports = RewardsRouter;
+module.exports = RewardsRouter

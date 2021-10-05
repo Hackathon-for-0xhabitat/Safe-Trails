@@ -7,17 +7,17 @@ const RewardsRouter = require('./rewards.routes')
 
 const Routes = (app) => {
   //AUTH
-  // app.use('/auth', authRouter)
+  app.use('/auth', authRouter)
   //USERS
-  app.use('/users', UsersRouter)
+  app.use('/api/users', UsersRouter)
   //MARKS
-  app.use('/marks', MarksRouter)
+  app.use('/api/marks', MarksRouter)
   //COMMENTS
-  app.use('/comments', CommentsRouter)
+  app.use('/api/comments', CommentsRouter)
   //Votes
-  app.use('/votes', VotesRouter)
+  app.use('/api/votes', VotesRouter)
   //Rewards
-  app.use('/rewards', RewardsRouter)
+  app.use('/api/rewards', RewardsRouter)
 }
 
 module.exports = Routes

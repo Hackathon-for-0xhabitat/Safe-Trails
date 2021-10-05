@@ -1,8 +1,12 @@
 const UserRouter = require('express').Router()
 const UserController = require('../controllers/user')
 const { registerValidation } = require('../helpers/utils')
-
-UserRouter.get('/viewall', UserController.findAll)
+const passport = require('passport')
+UserRouter.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  UserController.findAll
+)
 UserRouter.post('/register', registerValidation, UserController.addUser)
 
 module.exports = UserRouter

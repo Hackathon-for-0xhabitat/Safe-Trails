@@ -1,18 +1,12 @@
 require('dotenv').config()
 const passport = require('passport')
-const ErrorResponse = require('../helpers/ErrorResponse')
-const FacebookStrategy = require('passport-facebook').Strategy
-const GoogleStrategy = require('passport-google-oauth20').Strategy
+const LocalStrategy = require('passport-local').Strategy
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
-const LocalStrategy = require('passport-local').Strategy
-const { login } = require('../controllers/auth')
 const User = require('../models/User')
+const { login } = require('../controllers/auth')
 
 const authHandler = (app) => {
-  app.use(passport.initialize())
-  app.use(passport.session())
-
   passport.serializeUser((user, done) => {
     done(null, user.id)
   })
@@ -34,16 +28,35 @@ const authHandler = (app) => {
         usernameField: 'email',
         passwordField: 'password',
         session: false,
-        passReqToCallback: true,
-        failWithError: true,
       },
       login
     )
   )
+
+  //JWT
+  passport.use(
+    new JwtStrategy(
+      {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.JWT_SECRET,
+      },
+      function (payload, done) {
+        User.findOne({ id: payload.id }, function (err, user) {
+          if (err) {
+            return done(err, false)
+          }
+          if (user) {
+            return done(null, user)
+          } else {
+            return done(null, false)
+          }
+        })
+      }
+    )
+  )
+
+  app.use(passport.initialize())
+  app.use(passport.session())
 }
 
-const authenticate = (req, res, next) => {
-  passport.authenticate('local')
-}
-
-module.exports = { authHandler, authenticate }
+module.exports = { authHandler }
