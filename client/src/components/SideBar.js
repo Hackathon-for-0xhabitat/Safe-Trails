@@ -1,12 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Geocode from 'react-geocode';
 import { FileDrop } from 'react-file-drop';
+import { DataContext } from '../context/DataProvider';
 Geocode.setApiKey('AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY');
 Geocode.setLanguage('en');
 
 const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
    // const [upVote, setUpVote] = useState(0);
    // const [downVote, setDownVote] = useState(0);
+const [title, setTitle] = useState("")
+const [description, setDescription] = useState("")
+const {addItem} = useContext(DataContext)
 
    const [address, setAddress] = useState('');
    // Get address from latitude & longitude.
@@ -54,10 +58,32 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
       sidebarCloseHandler();
    };
 
+
+   const submitForm = (e) => {
+      e.preventDefault()
+      console.log("submit")
+         const data = {
+            title: title,
+            description: description,
+            lat: lat,
+            lng: lng,
+            date: new Date().toISOString,
+            __v: 0,
+            _id: { $oid: `615c733dfd1a8509a54f77${Math.floor(Math.random()*100)}` },
+             img: 'https://ak.picdn.net/shutterstock/videos/7969018/thumb/1.jpg',
+             votesup: [],
+             votesdown: [],
+         }
+         addItem(data)
+         closeWindow()
+      }
+
+
+
    return (
       <>
          <div className="absolute right-0 top-0 bottom-0 h-full pt-10 pb-3 px-5 z-50">
-            <form class="flex h-full max-w-sm space-x-3">
+            <form class="flex h-full max-w-sm space-x-3" onSubmit={submitForm}>
                <div class="w-full max-w-2xl px-5 py-5 mt-20 bg-white rounded-lg shadow dark:bg-gray-800">
                   <div className="flex justify-end " onClick={closeWindow}>
                      <svg
@@ -84,6 +110,7 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                               id="contact-form-name"
                               class=" rounded-lg border-transparent  border-2 flex-1 appearance-none  border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                               placeholder="Problem Description"
+                              onChange={(e) => setTitle(e.target.value)}
                            />
                         </div>
                      </div>
@@ -146,6 +173,7 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler }) => {
                               name="comment"
                               rows="3"
                               cols="40"
+                              onChange={(e) => setDescription(e.target.value)}
                            ></textarea>
                         </label>
                      </div>
