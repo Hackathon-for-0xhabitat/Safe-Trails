@@ -10,7 +10,18 @@ const path = require('path')
 const app = express()
 const port = process.env.PORT || 3001
 const Routes = require('./routes/routes')
+const Grid = require("gridfs-stream");
 
+let gfs;
+connection();
+
+const conn = mongoose.connection;
+conn.once("open", function () {
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection("photos");
+});
+
+app.use("/file", upload);
 app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({ extended: false }))

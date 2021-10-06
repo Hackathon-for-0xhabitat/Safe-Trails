@@ -4,6 +4,7 @@ const CommentsRouter = require('./comments.routes')
 const MarksRouter = require('./marks.routes')
 const VotesRouter = require('./votes.routes')
 const RewardsRouter = require('./rewards.routes')
+const PhotosRouter = require('./photos.routes')
 
 const Routes = (app) => {
   //AUTH
@@ -18,6 +19,9 @@ const Routes = (app) => {
   app.use('/api/votes', VotesRouter)
   //Rewards
   app.use('/api/rewards', RewardsRouter)
+
+  //PHOTOS
+  app.use('/api/photos', PhotosRouter)
 }
 
 module.exports = Routes
