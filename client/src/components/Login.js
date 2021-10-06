@@ -1,9 +1,10 @@
+import { BrowserRouter as Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 const { XIcon } = require('@heroicons/react/outline')
-var jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
-const Login = ({ userLogin, loginCloseHandler }) => {
+const Login = ({ userLogin, loginCloseHandler, setRegister }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -46,6 +47,10 @@ const Login = ({ userLogin, loginCloseHandler }) => {
 
   const loginClosed = () => {
     loginCloseHandler(true)
+  }
+  const handleRegister = () => {
+    loginCloseHandler(true)
+    setRegister(true)
   }
   return (
     <>
@@ -110,12 +115,14 @@ const Login = ({ userLogin, loginCloseHandler }) => {
                   )}
                 </button>
                 <p className="text-center py-3 text-sm font-bold">or</p>
-                <button
-                  onClick={loginClosed}
-                  className="py-2 px-4 bg-cyan-600 hover:bg-cyan-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                >
-                  Register
-                </button>
+                <Link to="/register">
+                  <button
+                    onClick={() => handleRegister()}
+                    className="py-2 px-4 bg-cyan-600 hover:bg-cyan-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                  >
+                    Register
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
