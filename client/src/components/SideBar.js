@@ -1,18 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import Geocode from 'react-geocode'
 import { FileDrop } from 'react-file-drop'
+import { DataContext } from '../context/DataProvider'
 import { XIcon } from '@heroicons/react/solid'
 import axios from 'axios'
-
 Geocode.setApiKey('AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY')
 Geocode.setLanguage('en')
 const jwt = require('jsonwebtoken')
 
 const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler, setSaved }) => {
-  let token = localStorage.authToken ? localStorage.authToken : false
+  // const [upVote, setUpVote] = useState(0);
+  // const [downVote, setDownVote] = useState(0);
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const { addItem } = useContext(DataContext)
 
-  const [upVote, setUpVote] = useState(0)
-  const [downVote, setDownVote] = useState(0)
+  let token = localStorage.authToken ? localStorage.authToken : false
   const [address, setAddress] = useState('')
   // Get address from latitude & longitude.
   Geocode.fromLatLng(lat, lng).then(
@@ -25,8 +28,6 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler, setSaved }) => {
     }
   )
   //FORM DATA
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
