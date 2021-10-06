@@ -1,13 +1,18 @@
-const  mongoose  = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-const markSchema = new Schema ({
-    latitude: {type: String,  required: true},
-    longitude: {type: String,  required: true},
-    date: {type: String, required: true}
+const markSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  votesup: { type: Array },
+  votesdown: { type: Array },
+  address: { type: String },
+  lat: { type: Number, required: true },
+  lng: { type: Number, required: true },
+  date: { type: String, default: Date.now },
+  img: { type: String },
 })
 
+const Mark = mongoose.model('Mark', markSchema)
 
-const Mark = mongoose.model('Mark', markSchema);
-
-module.exports = Mark;
+module.exports = Mark

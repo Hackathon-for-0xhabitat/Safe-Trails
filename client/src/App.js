@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import './App.css'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import RegisterForm from './components/RegisterForm';
+import RegisterForm from './components/RegisterForm'
 import MapDisplay from './components/MapDisplay'
 import SideBar from './components/SideBar'
 import Login from './components/Login'
@@ -18,6 +18,7 @@ function App() {
   const [isCoord, setIsCoord] = useState(false)
   const [selectedIssue, setSelectedIssue] = useState({})
   let token = localStorage.authToken ? localStorage.authToken : false
+  const [saved, setSaved] = useState(false)
 
   const votingHandler = (value) => {
     setSelectedIssue(value)
@@ -48,7 +49,6 @@ function App() {
   }, [isSidebar])
 
   useEffect(() => {
-    
     if (token || token === undefined) {
       var decode = jwt.decode(localStorage.authToken)
       userLogin({ id: decode.id, username: decode.username })
@@ -65,12 +65,12 @@ function App() {
       {Object.keys(selectedIssue).length !== 0 && <SidebarVoting />}
       {isLogged && (
         <Menu as="div" className="avatar ">
-          <Menu.Button className="flex items-center space-x-3 relative focus:outline-none bg-white py-2 px-4 rounded-xl shadow transition duration-100 hover:shadow-xl">
-            <h2 className="text-gray-800 font-bold text-lg hidden xl:block">
+          <Menu.Button className="flex items-center xl:space-x-3 relative focus:outline-none bg-opacity-20 py-2 px-4 rounded-xl transition duration-100">
+            <h2 className="font-bold text-lg hidden xl:block text-gray-900">
               Hey {isLogged.username}!
             </h2>
             <div
-              className={`rounded-full w-10 h-10 md:w-12 md:h-12 bg-gradient-to-t from-cyan-300 to-cyan-500 flex justify-center items-center`}
+              className={`rounded-full hover:shadow-xl shadow w-10 h-10 md:w-12 md:h-12 bg-gradient-to-t from-cyan-300 to-cyan-500 flex justify-center items-center`}
             >
               <p className="text-2xl md:text-3xl font-bold uppercase">
                 {isLogged.username[0]}
@@ -103,28 +103,33 @@ function App() {
           marker={latLng}
           coOrdinates={coOrdinates}
           votingHandler={votingHandler}
+          saved={saved}
+          setSaved={setSaved}
         />
-            {isLogged && isCoord && isSidebar ? (
-               <SideBar
-                  lat={latLng.lat}
-                  lng={latLng.lng}
-                  coOrdinates={coOrdinates}
-                  sidebarCloseHandler={sidebarCloseHandler}
-               />
-            ) : register ?  (<RegisterForm  userLogin={userLogin}/>) : (
-               isCoord &&
-               isSidebar && (
-                  <Login
-                     userLogin={userLogin}
-                     loginCloseHandler={loginCloseHandler}
-                     setRegister={setRegister}
-                  />
-               )
-            )}
-         </div>
-         {/* <Footer /> */}
-      </>
-   );
+        {isLogged && isCoord && isSidebar ? (
+          <SideBar
+            lat={latLng.lat}
+            lng={latLng.lng}
+            coOrdinates={coOrdinates}
+            sidebarCloseHandler={sidebarCloseHandler}
+            setSaved={setSaved}
+          />
+        ) : register ? (
+          <RegisterForm userLogin={userLogin} />
+        ) : (
+          isCoord &&
+          isSidebar && (
+            <Login
+              userLogin={userLogin}
+              loginCloseHandler={loginCloseHandler}
+              setRegister={setRegister}
+            />
+          )
+        )}
+      </div>
+      {/* <Footer /> */}
+    </>
+  )
 }
 
 export default App
