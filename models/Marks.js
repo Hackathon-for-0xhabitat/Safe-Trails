@@ -9,7 +9,7 @@ const markSchema = new Schema({
   address: { type: String },
   lat: { type: Number, required: true },
   lng: { type: Number, required: true },
-  date: { type: String, default: Date.now },
+  date: { type: Date, default: Date.now },
   img: { type: String },
 })
 
