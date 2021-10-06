@@ -103,7 +103,7 @@ background: linear-gradient(to right, #fdbb2d, #22c1c3);
     align-items: center;
   }
   .search {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
