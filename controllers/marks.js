@@ -26,6 +26,18 @@ const create = (req, res) => {
     })
 }
 
+const updateVote = (req, res) => {
+  const { id, user_id, type } = req.body
+  Marks.updateOne({ _id }, { title, description, lat, lng })
+    .then((result) => {
+      res.status(200).send(result)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.status(500).send('Error retrieving data from database')
+    })
+}
+
 const deleteById = (req, res) => {
   Marks.findByIdAndRemove({ _id: req.params.id })
     .then((result) => {
