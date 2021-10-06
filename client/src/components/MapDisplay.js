@@ -1,6 +1,12 @@
 import './MapDisplay.css'
 
-import React, { useState, useRef, useCallBack, useEffect } from 'react'
+import React, {
+  useState,
+  useRef,
+  useCallBack,
+  useEffect,
+  useContext,
+} from 'react'
 import {
   GoogleMap,
   useLoadScript,
@@ -27,6 +33,7 @@ import '@reach/combobox/styles.css'
 
 import mapStyles from './mapStyles'
 import SidebarVoting from './SidebarVoting'
+import { DataContext } from '../context/DataProvider'
 
 const libraries = ['places']
 
@@ -45,52 +52,6 @@ const options = {
   zoomcontrol: true,
 }
 
-const data = [
-  {
-    title: 'Dangerous intersection',
-    description: '',
-    _id: { $oid: '615b4e5f65f9e95b15087a01' },
-    lat: 52.520008,
-    lng: 13.484954,
-    date: '12/28/28',
-    votesup: ['615b4e5f65f9e95b15087a01', '615b4e5f65f9e95b15087a07'],
-    votesdown: ['615b4e5f65f9e95b15787a01'],
-    img: '',
-  },
-  {
-    title: 'No Lane',
-    lat: 52.520008,
-    lng: 13.404954,
-    date: '12/28/28',
-    __v: 0,
-    _id: { $oid: '615c733dfd1a8509a54f7977' },
-  },
-  {
-    title: 'Potholes',
-    lat: 52.520008,
-    lng: 13.444954,
-    date: '12/28/28',
-    __v: 0,
-    _id: { $oid: '615c733dfd1a8509a54f7877' },
-  },
-  {
-    title: 'Road Blocked',
-    lat: 52.5208789,
-    lng: 13.477709940957715,
-    date: '12/28/28',
-    __v: 0,
-    _id: { $oid: '615c733dfd1a8509a54f7877' },
-  },
-  {
-    title: 'Construction work',
-    lat: 52.53084917978288,
-    lng: 13.357709940957715,
-    date: '12/28/28',
-    __v: 0,
-    _id: { $oid: '615c733dfd1a8509a54f7877' },
-  },
-]
-
 const MapDisplay = ({
   coOrdinates,
   marker,
@@ -107,6 +68,8 @@ const MapDisplay = ({
   const [markers, setMarkers] = useState([])
   const [selected, setSelected] = useState(null)
   const [clicked, setclicked] = useState(false)
+
+  const { data } = useContext(DataContext)
 
   useEffect(() => {
     axios
@@ -157,8 +120,8 @@ const MapDisplay = ({
     <div>
       {/* <h1 className=" text-red-400 md:text-5xl font-sans md:font-bold">Safer Trails</h1>  */}
       <img
-        className=" hidden md:flex absolute top-1 left-1 z-10 w-80 p-5 "
-        src="/logoTitle.svg"
+        className=" hidden md:flex md:absolute md:top-1 md:left-1 md:z-10 md:w-80 md:p-5 "
+        src="/safeTrailsLogo.svg"
         alt="logo"
       />
 
@@ -232,7 +195,7 @@ const MapDisplay = ({
                       d="M8 7l4-4m0 0l4 4m-4-4v18"
                     />
                   </svg>
-                  0
+                  {selected.votesup.length}
                 </button>
 
                 {/* onClick={() => setDownVote(downVote - 1) */}
@@ -254,7 +217,7 @@ const MapDisplay = ({
                       d="M16 17l-4 4m0 0l-4-4m4 4V3"
                     />
                   </svg>
-                  0
+                  {selected.votesdown.length}
                 </button>
               </div>
             </div>
@@ -283,7 +246,14 @@ const Locate = ({ panTo }) => {
         )
       }}
     >
-      <img src="/thumb-compass.png" alt="compass" />
+      <div class="tooltip-wrap">
+        <img src="/thumb-compass.png" alt="compass" />
+        <div class="tooltip-content">
+          <p className="font-mono text-2xl">My Location</p>
+        </div>
+      </div>
+
+      {/* <img src="/thumb-compass.png" alt="compass" /> */}
     </button>
   )
 }
