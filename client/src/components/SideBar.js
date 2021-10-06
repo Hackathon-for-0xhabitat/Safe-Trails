@@ -8,7 +8,14 @@ Geocode.setApiKey('AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY')
 Geocode.setLanguage('en')
 const jwt = require('jsonwebtoken')
 
-const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler, setSaved }) => {
+const SideBar = ({
+  lat,
+  lng,
+  coOrdinates,
+  sidebarCloseHandler,
+  setSaved,
+  isLogged,
+}) => {
   // const [upVote, setUpVote] = useState(0);
   // const [downVote, setDownVote] = useState(0);
   const [title, setTitle] = useState('')
@@ -69,7 +76,14 @@ const SideBar = ({ lat, lng, coOrdinates, sidebarCloseHandler, setSaved }) => {
         'Content-Type': 'application/json',
       },
     }
-    const data = { title, description, lat, lng, address }
+    const data = {
+      title,
+      description,
+      lat,
+      lng,
+      address,
+      username: isLogged.username,
+    }
     const result = await axios.post('/api/marks/create', data, config)
     try {
       if (result.data.error) {

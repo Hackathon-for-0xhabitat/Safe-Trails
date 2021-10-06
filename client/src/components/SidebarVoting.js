@@ -9,7 +9,6 @@ const SidebarVoting = ({ data, votingHandler, isLogged }) => {
     votingHandler({})
   }
   const upVoteHandler = () => {
-    console.log(isLogged.id)
     if (data.votesup.includes(isLogged.id)) {
       alert('you can vote only once')
     } else {
@@ -18,7 +17,6 @@ const SidebarVoting = ({ data, votingHandler, isLogged }) => {
   }
 
   const downVoteHandler = () => {
-    console.log(isLogged.id)
     if (data.votesdown.includes(isLogged.id)) {
       alert('you can vote only once')
     } else {
@@ -48,7 +46,10 @@ const SidebarVoting = ({ data, votingHandler, isLogged }) => {
               </div>
               <div class="col-span-2 lg:col-span-2">
                 <div class=" relative ">
-                  <p className="text-lg font-semibold"> Reported Date : </p>
+                  <p className="text-lg underline">
+                    Reported by
+                    <span className="font-bold"> {data.username}</span> on:
+                  </p>
 
                   <p className="text-sm ">{moment(data.date).format('LLLL')}</p>
                 </div>

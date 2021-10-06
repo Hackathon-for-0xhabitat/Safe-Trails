@@ -15,8 +15,8 @@ const findAll = (req, res) => {
 }
 
 const create = (req, res) => {
-  const { title, description, lat, lng } = req.body
-  Marks.create({ title, description, lat, lng })
+  const { title, description, lat, lng, username } = req.body
+  Marks.create({ title, description, lat, lng, username })
     .then((result) => {
       res.status(200).send(result)
     })
@@ -26,17 +26,23 @@ const create = (req, res) => {
     })
 }
 
-const updateVote = (req, res) => {
-  const { id, user_id, type } = req.body
-  Marks.updateOne({ _id }, { title, description, lat, lng })
-    .then((result) => {
-      res.status(200).send(result)
-    })
-    .catch((err) => {
-      console.log(err)
-      res.status(500).send('Error retrieving data from database')
-    })
-}
+// const updateVote = (req, res) => {
+//   const { id, user_id, type, remove } = req.body
+//   let updateField = ''
+//   if (type === 'up') {
+//     const updateField = { $push: { votesup: { user_id } } }
+//   } else {
+//     const updateField = { $push: { votesdown: { user_id } } }
+//   }
+//   Marks.updateOne({ _id: id }, updateField)
+//     .then((result) => {
+//       res.status(200).send(result)
+//     })
+//     .catch((err) => {
+//       console.log(err)
+//       res.status(500).send('Error retrieving data from database')
+//     })
+// }
 
 const deleteById = (req, res) => {
   Marks.findByIdAndRemove({ _id: req.params.id })

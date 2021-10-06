@@ -119,6 +119,7 @@ function App() {
             coOrdinates={coOrdinates}
             sidebarCloseHandler={sidebarCloseHandler}
             setSaved={setSaved}
+            isLogged={isLogged}
           />
         ) : register ? (
           <RegisterForm userLogin={userLogin} setRegister={setRegister} />
