@@ -58,6 +58,7 @@ const RegisterForm = () =>{
                  <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
                    <div class="col-span-2 lg:col-span-2">
                      <div class=" relative mt-5">
+                     <p className="px-2 pb-2 font-bold">Email</p>
                      <input
                             type="text"
                             placeholder="Enter Email"
@@ -72,6 +73,7 @@ const RegisterForm = () =>{
                    </div>
                    <div class="col-span-2 lg:col-span-2">
                      <div class=" relative mt-5">
+                     <p className="px-2 pb-2 font-bold">Username</p>
                      <input
                             type="text"
                             placeholder="Enter a Username"
@@ -86,9 +88,10 @@ const RegisterForm = () =>{
                    </div>
                    <div class="col-span-2 lg:col-span-2">
                      <div class=" relative mt-2 ">
+                     <p className="px-2 pb-2 font-bold">Password</p>
                      <input
                             type='password'
-                            palceholder='Enter the password'
+                            placeholder='Enter the password'
                             name='psw'
                             value={password }
                             id='psw'

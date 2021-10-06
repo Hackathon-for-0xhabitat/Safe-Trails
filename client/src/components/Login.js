@@ -115,14 +115,11 @@ const Login = ({ userLogin, loginCloseHandler, setRegister }) => {
                   )}
                 </button>
                 <p className="text-center py-3 text-sm font-bold">or</p>
+                <Link to="/register">
                 <button
-                  onClick={loginClosed}
+                  onClick={() =>handleRegister() }
                   className="py-2 px-4 bg-cyan-600 hover:bg-cyan-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                 >
-                  Register
-                </button>
-                <Link to="/register">
-                <button onClick={() =>handleRegister() } class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                   Register
                 </button>
                 </Link>
