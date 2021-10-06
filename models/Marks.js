@@ -7,6 +7,7 @@ const markSchema = new Schema({
   votesup: { type: Array },
   votesdown: { type: Array },
   address: { type: String },
+  username: { type: String },
   lat: { type: Number, required: true },
   lng: { type: Number, required: true },
   date: { type: Date, default: Date.now },

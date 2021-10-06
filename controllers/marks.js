@@ -15,8 +15,8 @@ const findAll = (req, res) => {
 }
 
 const create = (req, res) => {
-  const { title, description, lat, lng } = req.body
-  Marks.create({ title, description, lat, lng })
+  const { title, description, lat, lng, username } = req.body
+  Marks.create({ title, description, lat, lng, username })
     .then((result) => {
       res.status(200).send(result)
     })
