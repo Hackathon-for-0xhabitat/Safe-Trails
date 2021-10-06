@@ -9,7 +9,6 @@ const SidebarVoting = ({ data, votingHandler, isLogged }) => {
     votingHandler({})
   }
   const upVoteHandler = () => {
-    console.log(isLogged.id)
     if (data.votesup.includes(isLogged.id)) {
       alert('you can vote only once')
     } else {
@@ -18,7 +17,6 @@ const SidebarVoting = ({ data, votingHandler, isLogged }) => {
   }
 
   const downVoteHandler = () => {
-    console.log(isLogged.id)
     if (data.votesdown.includes(isLogged.id)) {
       alert('you can vote only once')
     } else {
