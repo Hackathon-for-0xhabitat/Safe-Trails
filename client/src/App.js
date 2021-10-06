@@ -65,12 +65,12 @@ function App() {
       {Object.keys(selectedIssue).length !== 0 && <SidebarVoting />}
       {isLogged && (
         <Menu as="div" className="avatar ">
-          <Menu.Button className="flex items-center xl:space-x-3 relative focus:outline-none bg-white py-2 px-4 rounded-xl shadow transition duration-100 hover:shadow-xl">
-            <h2 className="text-gray-800 font-bold text-lg hidden xl:block">
+          <Menu.Button className="flex items-center xl:space-x-3 relative focus:outline-none bg-opacity-20 py-2 px-4 rounded-xl transition duration-100">
+            <h2 className="font-bold text-lg hidden xl:block text-gray-900">
               Hey {isLogged.username}!
             </h2>
             <div
-              className={`rounded-full w-10 h-10 md:w-12 md:h-12 bg-gradient-to-t from-cyan-300 to-cyan-500 flex justify-center items-center`}
+              className={`rounded-full hover:shadow-xl shadow w-10 h-10 md:w-12 md:h-12 bg-gradient-to-t from-cyan-300 to-cyan-500 flex justify-center items-center`}
             >
               <p className="text-2xl md:text-3xl font-bold uppercase">
                 {isLogged.username[0]}
