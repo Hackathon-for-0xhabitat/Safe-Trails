@@ -13,19 +13,17 @@ import SidebarVoting from './components/SidebarVoting'
 function App() {
   const [register, setRegister] = useState(false)
   const [latLng, setLatLng] = useState({})
-  const [isLogged, setIsLogged] = useState({ id: '615b4e5f65f9e95b15087a05', username: 'Sasmitha' })
+  const [isLogged, setIsLogged] = useState(false)
   const [isSidebar, setIsSidebar] = useState(false)
   const [isCoord, setIsCoord] = useState(false)
   const [selectedIssue, setSelectedIssue] = useState({})
   let token = localStorage.authToken ? localStorage.authToken : false
   const [saved, setSaved] = useState(false)
 
-   const votingHandler = (value) => {
-     console.log(value)
+  const votingHandler = (value) => {
     setSelectedIssue(value)
   }
-   console.log("from App",selectedIssue)
-   
+
   const loginCloseHandler = () => {
     setIsSidebar(false)
     // setIsCoord(true);
@@ -64,12 +62,13 @@ function App() {
   }
   return (
     <>
-        {Object.keys(selectedIssue).length !== 0 && <SidebarVoting
-           data={selectedIssue}
-           votingHandler={votingHandler}
-           isLogged={isLogged}
-           
-        />}
+      {Object.keys(selectedIssue).length !== 0 && (
+        <SidebarVoting
+          data={selectedIssue}
+          votingHandler={votingHandler}
+          isLogged={isLogged}
+        />
+      )}
       {isLogged && (
         <Menu as="div" className="avatar ">
           <Menu.Button className="flex items-center xl:space-x-3 relative focus:outline-none bg-opacity-20 py-2 px-4 rounded-xl transition duration-100">
@@ -122,7 +121,7 @@ function App() {
             setSaved={setSaved}
           />
         ) : register ? (
-          <RegisterForm userLogin={userLogin} />
+          <RegisterForm userLogin={userLogin} setRegister={setRegister} />
         ) : (
           isCoord &&
           isSidebar && (

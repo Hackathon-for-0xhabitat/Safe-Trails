@@ -74,7 +74,6 @@ const Login = ({ userLogin, loginCloseHandler, setRegister }) => {
                   <p className="px-2 pb-2 font-bold">Email</p>
                   <input
                     type="email"
-                    id="contact-form-name"
                     className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent"
                     placeholder="Enter your email"
                     required
@@ -87,7 +86,6 @@ const Login = ({ userLogin, loginCloseHandler, setRegister }) => {
                   <input
                     required
                     type="password"
-                    id="contact-form-name"
                     className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent"
                     placeholder="Enter your password"
                     onChange={(e) => setPassword(e.target.value)}
@@ -115,14 +113,12 @@ const Login = ({ userLogin, loginCloseHandler, setRegister }) => {
                   )}
                 </button>
                 <p className="text-center py-3 text-sm font-bold">or</p>
-                <Link to="/register">
-                  <button
-                    onClick={() => handleRegister()}
-                    className="py-2 px-4 bg-cyan-600 hover:bg-cyan-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-                  >
-                    Register
-                  </button>
-                </Link>
+                <button
+                  onClick={() => handleRegister()}
+                  className="py-2 px-4 bg-cyan-600 hover:bg-cyan-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                >
+                  Register
+                </button>
               </div>
             </div>
           </div>

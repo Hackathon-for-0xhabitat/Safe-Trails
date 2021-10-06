@@ -14,7 +14,11 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api'
-
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ChevronRightIcon,
+} from '@heroicons/react/outline'
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -173,52 +177,38 @@ const MapDisplay = ({
               setSelected(null)
             }}
           >
-            <div>
-              <h2 className=" text-xl font-semibold">{selected.title}</h2>
-              {/* <p>Time: {formatRelative(selected.time, new Date())}</p> */}
-              <div className="flex justify-center">
-                <button
-                  class="flex items-center px-2 py-2  transition ease-in duration-200 uppercase rounded hover:bg-gray-800 text-red-500 hover:text-white border-2 border-gray-4P00 focus:outline-none"
-                  onClick={selectedClicked}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M8 7l4-4m0 0l4 4m-4-4v18"
-                    />
-                  </svg>
-                  {selected.votesup.length}
-                </button>
-
-                {/* onClick={() => setDownVote(downVote - 1) */}
-                <button
-                  class="flex items-center px-2 py-2  mx-2 transition ease-in duration-200 uppercase rounded hover:bg-gray-800 text-black  hover:text-white border-2 border-gray-400 focus:outline-none"
-                  onClick={selectedClicked}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M16 17l-4 4m0 0l-4-4m4 4V3"
-                    />
-                  </svg>
-                  {selected.votesdown.length}
-                </button>
+            <div
+              className="flex flex-col cursor-pointer group w-40"
+              onClick={selectedClicked}
+            >
+              <div className="h-20">
+                <h2 className=" text-xl font-semibold mb-1 ">
+                  {selected.title}
+                </h2>
+                <p className="text-sm mb-2 truncate overflow-ellipsis overflow-hidden ">
+                  {selected.description}
+                </p>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex mr-2">
+                  <div class="flex items-center text-red-500">
+                    <ChevronUpIcon className="h-6 w-6" />
+                    <p className="font-bold text-sm">
+                      {selected.votesup.length}
+                    </p>
+                  </div>
+                  <div class="flex items-center ml-2">
+                    <ChevronDownIcon className="h-6 w-6" />
+                    <p className="font-bold text-sm">
+                      {selected.votesdown.length}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex ">
+                  <div class="flex items-center ml-4">
+                    <ChevronRightIcon className="h-8 w-8 group-hover:text-green-600" />
+                  </div>
+                </div>
               </div>
             </div>
           </InfoWindow>
@@ -252,7 +242,6 @@ const Locate = ({ panTo }) => {
           <p className="font-mono text-2xl">My Location</p>
         </div>
       </div>
-
       {/* <img src="/thumb-compass.png" alt="compass" /> */}
     </button>
   )
