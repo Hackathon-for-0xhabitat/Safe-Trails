@@ -10,7 +10,11 @@ const markSchema = new Schema({
   lat: { type: Number, required: true },
   lng: { type: Number, required: true },
   date: { type: Date, default: Date.now },
-  img: { type: String },
+  img: {
+    type: String,
+    default:
+      'https://thumbs.dreamstime.com/b/white-worn-out-road-marking-gray-asphalt-can-be-used-as-abstract-background-152285785.jpg',
+  },
 })
 
 const Mark = mongoose.model('Mark', markSchema)
