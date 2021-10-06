@@ -19,7 +19,6 @@ const login = async (username, password, done) => {
 }
 
 const sendToken = (req, res) => {
-  console.log(req.user)
   if (req.user.id) {
     const payload = {
       id: req.user._id,

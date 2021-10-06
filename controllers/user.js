@@ -19,9 +19,13 @@ const addUser = async (req, res, next) => {
       password: await utils.generateHashedPassword(password),
     }
     const newUser = await User.create(data)
-    // utils.sendToken(newUser, 200, res)
+    utils.sendToken(newUser, res)
   } catch (e) {
-    next(e)
+    if (e.code === 11000) {
+      const keys = Object.keys(e.keyValue).join(' ')
+      res.status(200).json({error: 'Duplicate', message: keys + 'already in use'})
+    } else {
+    res.status(500).json({error: 'Error', message: 'database error'})}
   }
 }
 

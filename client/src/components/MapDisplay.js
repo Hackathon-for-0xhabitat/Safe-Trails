@@ -1,6 +1,12 @@
 import './MapDisplay.css'
 
-import React, { useState, useRef, useCallBack, useEffect, useContext } from 'react'
+import React, {
+  useState,
+  useRef,
+  useCallBack,
+  useEffect,
+  useContext,
+} from 'react'
 import {
   GoogleMap,
   useLoadScript,
@@ -46,32 +52,35 @@ const options = {
   zoomcontrol: true,
 }
 
-
-const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
+const MapDisplay = ({
+  coOrdinates,
+  marker,
+  votingHandler,
+  saved,
+  setSaved,
+}) => {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY',
     libraries,
   })
-
   const [allMarkers, setAllMarkers] = useState([])
   const [loading, setLoading] = useState(true)
   const [markers, setMarkers] = useState([])
   const [selected, setSelected] = useState(null)
   const [clicked, setclicked] = useState(false)
 
-  const {data} = useContext(DataContext)
-  
+  const { data } = useContext(DataContext)
+
   useEffect(() => {
-    console.log(data)
-    setAllMarkers(data)
-    // axios
-    //    .get('/api/marks/')
-    //    .then((res) => {
-    //       setAllMarkers(res);
-    //       setLoading(false);
-    //    })
-    //    .catch((e) => console.log(e));
-  }, [data])
+    axios
+      .get('/api/marks/')
+      .then((res) => {
+        setAllMarkers(res.data)
+        setLoading(false)
+        setSaved(false)
+      })
+      .catch((e) => console.log(e))
+  }, [saved])
 
   const selectedClicked = () => {
     votingHandler(selected)
@@ -106,11 +115,9 @@ const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
   if (loadError) return 'Error loading maps'
   if (!isLoaded) return 'Loading Maps'
 
-  console.log(allMarkers)
   // const address= https://maps.googleapis.com/maps/api/geocode/json?latlng=44.4647452,7.3553838&key=YOUR_API_KEY
   return (
-     <div>
-      
+    <div>
       {/* <h1 className=" text-red-400 md:text-5xl font-sans md:font-bold">Safer Trails</h1>  */}
       <img
         className=" hidden md:flex md:absolute md:top-1 md:left-1 md:z-10 md:w-80 md:p-5 "
@@ -146,7 +153,7 @@ const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
         {allMarkers.length > 0 &&
           allMarkers.map((marker) => (
             <Marker
-              key={marker.title}
+              key={marker.title + marker.date}
               position={{ lat: marker.lat, lng: marker.lng }}
               icon={{
                 url: '/Clipboard.png',
@@ -157,7 +164,6 @@ const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
               onClick={() => {
                 setSelected(marker)
               }}
-              
             />
           ))}
         {selected ? (
@@ -239,14 +245,13 @@ const Locate = ({ panTo }) => {
           () => null
         )
       }}
-     >
-        
-        <div class="tooltip-wrap">
+    >
+      <div class="tooltip-wrap">
         <img src="/thumb-compass.png" alt="compass" />
-  <div class="tooltip-content">
-    <p className="font-mono text-2xl">My Location</p>
-  </div> 
-</div>
+        <div class="tooltip-content">
+          <p className="font-mono text-2xl">My Location</p>
+        </div>
+      </div>
 
       {/* <img src="/thumb-compass.png" alt="compass" /> */}
     </button>

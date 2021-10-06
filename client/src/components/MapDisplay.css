@@ -2,97 +2,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Allison&family=Kaushan+Script&family=Meddon&family=Mr+Dafoe&family=Mr+De+Haviland&family=Sacramento&display=swap');
 
 h1 {
-   position: absolute;
-   top: 1.5rem;
-   left: 1.5rem;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
 
-   z-index: 10;
-   /* margin: 20px; */
+  z-index: 10;
+  /* margin: 20px; */
 
-   /* background-color: rgb(148, 151, 134); */
-   /* padding: 20px; */
+  /* background-color: rgb(148, 151, 134); */
+  /* padding: 20px; */
 }
 .search {
-   position: absolute;
-   top: 1.5 rem;
-   right: 1.5rem;
-   left: 85%;
-   transform: translateX(-150%);
-   width: 100%;
-   max-width: 400px;
-   z-index: 10;
-   
+  position: absolute;
+  top: 1.5 rem;
+  right: 1.5rem;
+  left: 85%;
+  transform: translateX(-150%);
+  width: 100%;
+  max-width: 400px;
+  z-index: 10;
 }
 .search input {
-   padding: 0.5rem;
-   font-size: 1.5rem;
-   width: 90%;
-   border: 1.2px solid #F64F4F;
-   border-radius: 10px;
-   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, );
-  margin-top:1rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  width: 90%;
+  border: 1.2px solid #f64f4f;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0);
+  margin-top: 1rem;
 }
 .locate {
-   position: absolute;
-   bottom: 1.5rem;
-   left: 1.5rem;
-   background: none;
-   border: none;
-   z-index: 15;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: none;
+  border: none;
+  z-index: 15;
 }
 .locate img {
-   width: 80px;
-   cursor: pointer;
+  width: 80px;
+  cursor: pointer;
 }
-
 
 .tooltip-wrap {
-   position: relative;
- }
- .tooltip-wrap .tooltip-content {
-   display: none;
-   position: absolute;
-   bottom: 100%;
-   left: 15%;
-   right: 15%;
-   color:#F64F4F;
-   font-weight: bold;
-   font-size:1rem
-   /* background-color: #F64F4F; */
-   /* padding: 1rem; */
-  
- }
- .tooltip-wrap:hover .tooltip-content {
-   display: inline-block;
- }
+  position: relative;
+}
+.tooltip-wrap .tooltip-content {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 15%;
+  right: 15%;
+  color: #f64f4f;
+  font-weight: bold;
+  font-size: 1rem;
+  /* background-color: #F64F4F; */
+  /* padding: 1rem; */
+}
+.tooltip-wrap:hover .tooltip-content {
+  display: inline-block;
+}
 
 .logo {
-   margin: 0;
-   padding: 0;
+  margin: 0;
+  padding: 0;
 }
-
-
 
 .avatar {
-   position: absolute;
-   top: 0.8rem;
-   right: 1rem;
-   background: none;
-   border: none;
-   z-index: 20;
-   display: inline;
-   margin-right: 0.5rem;
-   object-fit: cover;
- 
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  z-index: 20;
+  display: inline;
+  margin-right: 0.5rem;
+  object-fit: cover;
 }
 .avatar img {
-   width: 4rem;
-   height: 4rem;
-   cursor: pointer;
-   border-radius: 100%;
-   padding: 0.01rem;
-   border:1px solid white;
-
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 0.01rem;
+  border: 1px solid white;
 }
 
 /* .logo{
@@ -102,22 +95,20 @@ background: linear-gradient(to right, #fdbb2d, #22c1c3);
  font-size: 20px;
   }  */
 
-
-  
 @media screen and (max-width: 768px) {
-   .mapDisplayContainer {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-   }
-   .search {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      width: 100%;
-      margin: 10px;
-   }
+  .mapDisplayContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin: 10px;
+  }
 }
