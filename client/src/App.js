@@ -48,7 +48,8 @@ function App() {
   }, [isSidebar])
 
   useEffect(() => {
-    if (token) {
+    
+    if (token || token === undefined) {
       var decode = jwt.decode(localStorage.authToken)
       userLogin({ id: decode.id, username: decode.username })
     }
@@ -110,7 +111,7 @@ function App() {
                   coOrdinates={coOrdinates}
                   sidebarCloseHandler={sidebarCloseHandler}
                />
-            ) : register ?  (<RegisterForm />) : (
+            ) : register ?  (<RegisterForm  userLogin={userLogin}/>) : (
                isCoord &&
                isSidebar && (
                   <Login

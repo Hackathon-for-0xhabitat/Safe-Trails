@@ -1,13 +1,13 @@
 import {React, useState } from 'react'
-import  {BrowserRouter as Link} from 'react-router-dom'
 import axios from 'axios'
+var jwt = require('jsonwebtoken')
 
-
-const RegisterForm = () =>{
+const RegisterForm = ({userLogin}) =>{
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const handleChangeEmail = (event) => {
         setEmail(event.target.value);}
@@ -16,22 +16,33 @@ const RegisterForm = () =>{
     const handleChangeUsername = (event) => {
         setUsername(event.target.value) }
 
-      const handleSubmit = () => {
-        const loginFormData = new FormData();
-        loginFormData.append("email", email)
-        loginFormData.append("username", username)
-        loginFormData.append("password", password)
+      const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
 
         const config = { header: { 'Content-Type': 'application/json'} }
         
-        axios(( '/api/users/register', { email, username, password }, config )
-        .then((result)=>{
-            console.log(result)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-        )
+        const result = await axios.post('/api/users/register', { email, username, password }, config )
+       try {
+         console.log(result)
+         if (result.data.error) {
+          setLoading(false)
+          setError(result.data.error)
+          setTimeout(() => {
+            setError('')
+          }, 5000)
+         } else {
+            localStorage.setItem('authToken', result.data.access_token)
+          var decode = jwt.decode(result.access_token)
+          userLogin({ id: decode.id, username: decode.username })
+         }
+        } catch(err) {
+          setLoading(false)
+          setError(err.message)
+          setTimeout(() => {
+            setError('')
+          }, 5000)
+        }
     }
     return (
         <>
@@ -108,7 +119,19 @@ const RegisterForm = () =>{
                         onClick={handleSubmit}
                        class="py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                      >
-                       Register
+                     {loading ? (
+                    <div className="flex justify-center">
+                      <div
+                        style={{ borderTopColor: 'transparent' }}
+                        className="w-6 h-6 border-4 border-white border-dotted rounded-full animate-spin"
+                      ></div>
+                    </div>
+                  ) : error.length ? (
+                    <span className="text-white animate-pulse">{error}</span>
+                  ) : (
+                    'Register'
+                  )}
+                       
                      </button>
                    </div>
                  </div>
