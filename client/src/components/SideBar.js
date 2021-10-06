@@ -2,6 +2,8 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import Geocode from 'react-geocode'
 import { FileDrop } from 'react-file-drop'
 import { DataContext } from '../context/DataProvider'
+import { XIcon } from '@heroicons/react/solid'
+import axios from 'axios'
 Geocode.setApiKey('AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY')
 Geocode.setLanguage('en')
 const jwt = require('jsonwebtoken')
