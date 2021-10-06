@@ -3,15 +3,15 @@ import jwt from 'jsonwebtoken'
 import './App.css'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-
+import RegisterForm from './components/RegisterForm';
 import MapDisplay from './components/MapDisplay'
 import SideBar from './components/SideBar'
 import Login from './components/Login'
 import './components/MapDisplay.css'
 import SidebarVoting from './components/SidebarVoting'
-// import Footer from './components/Footer';
 
 function App() {
+  const [register, setRegister] = useState(false)
   const [latLng, setLatLng] = useState({})
   const [isLogged, setIsLogged] = useState(false)
   const [isSidebar, setIsSidebar] = useState(false)
@@ -48,7 +48,8 @@ function App() {
   }, [isSidebar])
 
   useEffect(() => {
-    if (token) {
+    
+    if (token || token === undefined) {
       var decode = jwt.decode(localStorage.authToken)
       userLogin({ id: decode.id, username: decode.username })
     }
@@ -59,7 +60,6 @@ function App() {
     token = false
     setIsLogged(false)
   }
-  console.log(isLogged)
   return (
     <>
       {Object.keys(selectedIssue).length !== 0 && <SidebarVoting />}
@@ -104,28 +104,27 @@ function App() {
           coOrdinates={coOrdinates}
           votingHandler={votingHandler}
         />
-        {/* <UserInput/> */}
-
-        {isLogged && isCoord && isSidebar ? (
-          <SideBar
-            lat={latLng.lat}
-            lng={latLng.lng}
-            coOrdinates={coOrdinates}
-            sidebarCloseHandler={sidebarCloseHandler}
-          />
-        ) : (
-          isCoord &&
-          isSidebar && (
-            <Login
-              userLogin={userLogin}
-              loginCloseHandler={loginCloseHandler}
-            />
-          )
-        )}
-      </div>
-      {/* <Footer /> */}
-    </>
-  )
+            {isLogged && isCoord && isSidebar ? (
+               <SideBar
+                  lat={latLng.lat}
+                  lng={latLng.lng}
+                  coOrdinates={coOrdinates}
+                  sidebarCloseHandler={sidebarCloseHandler}
+               />
+            ) : register ?  (<RegisterForm  userLogin={userLogin}/>) : (
+               isCoord &&
+               isSidebar && (
+                  <Login
+                     userLogin={userLogin}
+                     loginCloseHandler={loginCloseHandler}
+                     setRegister={setRegister}
+                  />
+               )
+            )}
+         </div>
+         {/* <Footer /> */}
+      </>
+   );
 }
 
 export default App
