@@ -91,12 +91,17 @@ const data = [
   },
 ]
 
-const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
+const MapDisplay = ({
+  coOrdinates,
+  marker,
+  votingHandler,
+  saved,
+  setSaved,
+}) => {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyDZm5P_EhxPjg23_BRvxQl6sVUXrW1zSOY',
     libraries,
   })
-
   const [allMarkers, setAllMarkers] = useState([])
   const [loading, setLoading] = useState(true)
   const [markers, setMarkers] = useState([])
@@ -104,16 +109,15 @@ const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
   const [clicked, setclicked] = useState(false)
 
   useEffect(() => {
-    console.log(data)
-    setAllMarkers(data)
-    // axios
-    //    .get('/api/marks/')
-    //    .then((res) => {
-    //       setAllMarkers(res);
-    //       setLoading(false);
-    //    })
-    //    .catch((e) => console.log(e));
-  }, [])
+    axios
+      .get('/api/marks/')
+      .then((res) => {
+        setAllMarkers(res.data)
+        setLoading(false)
+        setSaved(false)
+      })
+      .catch((e) => console.log(e))
+  }, [saved])
 
   const selectedClicked = () => {
     votingHandler(selected)
@@ -148,7 +152,6 @@ const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
   if (loadError) return 'Error loading maps'
   if (!isLoaded) return 'Loading Maps'
 
-  console.log(allMarkers)
   // const address= https://maps.googleapis.com/maps/api/geocode/json?latlng=44.4647452,7.3553838&key=YOUR_API_KEY
   return (
     <div>
@@ -187,7 +190,7 @@ const MapDisplay = ({ coOrdinates, marker, votingHandler }) => {
         {allMarkers.length > 0 &&
           allMarkers.map((marker) => (
             <Marker
-              key={marker.title}
+              key={marker.title + marker.date}
               position={{ lat: marker.lat, lng: marker.lng }}
               icon={{
                 url: '/Clipboard.png',
