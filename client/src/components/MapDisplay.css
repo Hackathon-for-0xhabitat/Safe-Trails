@@ -19,7 +19,7 @@ h1 {
   left: 85%;
   transform: translateX(-150%);
   width: 100%;
-  max-width: 400px;
+  max-width: 200px;
   z-index: 10;
 }
 .search input {
@@ -103,12 +103,8 @@ background: linear-gradient(to right, #fdbb2d, #22c1c3);
     align-items: center;
   }
   .search {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    margin: 10px;
+     display:none;
+  
+    
   }
 }

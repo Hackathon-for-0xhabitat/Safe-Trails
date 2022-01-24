@@ -16,7 +16,7 @@ const defaultData = [
      img: 'https://sfbike.org/wp-content/uploads/2018/04/mixing-zone-1000px.jpg',
    },
    {
-     title: 'No Lane Markings',
+     title: 'Unclear Lane Markings',
      description: 'No proper lane markings in this area',
      lat: 52.520008,
      lng: 13.394954,
